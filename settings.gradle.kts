@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         maven {url = uri("https://srepo.tosantechno.net/repository/maven-group/") }
 //        google {
