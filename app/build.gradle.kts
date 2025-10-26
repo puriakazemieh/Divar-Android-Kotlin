@@ -9,10 +9,10 @@ plugins {
 android {
 
 
-    namespace = "com.divar.application"
+    namespace = "com.kazemieh.application"
 
     defaultConfig {
-        applicationId = "com.divar.application"
+        applicationId = "com.kazemieh.application"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

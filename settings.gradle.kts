@@ -24,4 +24,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Divar"
 include(":app")
- 
+include(":core:database")
+include(":core:utils")
+include(":core:network")
+include(":core:secure-shared-pref")
+include(":core:ui")
+include(":core:data")
+include(":core:domain")
