@@ -1,4 +1,4 @@
-package com.kazemieh.divar.ui.theme
+package com.kazemieh.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

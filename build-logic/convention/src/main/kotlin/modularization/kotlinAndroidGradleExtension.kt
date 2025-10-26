@@ -20,7 +20,7 @@ internal fun Project.kotlinAndroidGradleExtension(
     commonExtension.apply {
         compileSdk = 36
         defaultConfig {
-            minSdk = 21
+            minSdk = 24
             version = 1
         }
 

@@ -61,5 +61,10 @@ gradlePlugin {
             implementationClass = "RoomConvention"
         }
 
+        register("retrofit") {
+            id = "convention.android.retrofit"
+            implementationClass = "RetrofitConvention"
+        }
+
     }
 }

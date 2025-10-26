@@ -2,6 +2,7 @@ plugins {
     id("convention.android.library")
     id("convention.android.hilt")
     id("convention.android.serialization")
+    id("convention.android.retrofit")
 }
 
 android {
@@ -12,7 +13,4 @@ android {
 dependencies {
     implementation(project(":core:secure-shared-pref"))
 
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
 }

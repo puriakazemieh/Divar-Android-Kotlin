@@ -30,6 +30,15 @@ android {
 
 dependencies {
 
+implementation(project(":core:database"))
+implementation(project(":core:utils"))
+implementation(project(":core:network"))
+implementation(project(":core:secure-shared-pref"))
+implementation(project(":core:ui"))
+implementation(project(":core:data"))
+implementation(project(":core:domain"))
+
+
 //    implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.lifecycle.runtime.ktx)
 //    implementation(libs.androidx.activity.compose)

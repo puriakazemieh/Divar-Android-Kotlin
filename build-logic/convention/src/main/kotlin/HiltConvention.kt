@@ -20,9 +20,9 @@ class HiltConvention : Plugin<Project> {
 
     private fun Project.applyDependencies() {
         dependencies {
-            implementation( libs.findLibrary("dagger.hilt.android").get())
-            implementation( libs.findLibrary("dagger.hilt.navigation").get())
-            ksp( libs.findLibrary("dagger.hilt.compiler").get())
+            implementation(libs.findLibrary("dagger.hilt.android").get())
+            implementation(libs.findLibrary("dagger.hilt.navigation").get())
+            ksp(libs.findLibrary("dagger.hilt.compiler").get())
         }
     }
 }
