@@ -20,6 +20,8 @@ class SerializationConvention : Plugin<Project> {
     private fun Project.applyDependencies() {
         dependencies {
             implementation(libs.findLibrary("kotlinx.serialization.json").get())
+            implementation( libs.findLibrary("retrofit.kotlin.serialization").get())
+
         }
     }
 }
