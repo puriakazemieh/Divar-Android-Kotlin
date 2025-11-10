@@ -1,7 +1,7 @@
 package com.kazemieh.category
 
 import androidx.compose.runtime.Stable
-import com.kazemieh.domain.model.Category
+import com.kazemieh.domain.model.category.Category
 import com.kazemieh.ui.extension.immutableListOf
 import com.kazemieh.ui.viewmodel.UiEvent
 import com.kazemieh.ui.viewmodel.UiState

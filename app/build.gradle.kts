@@ -19,6 +19,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "BaseUrl", properties["BaseUrl"].toString())
     }
 
     buildTypes {
@@ -39,6 +41,7 @@ implementation(project(":core:ui"))
 implementation(project(":core:data"))
 implementation(project(":core:domain"))
 implementation(project(":feature:category"))
+implementation(project(":feature:home"))
 
 
 //    implementation(libs.androidx.core.ktx)

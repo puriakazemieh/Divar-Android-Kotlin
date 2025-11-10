@@ -1,4 +1,4 @@
-package com.divar.network.dto
+package com.kazemieh.network.dto.category
 
 import kotlinx.serialization.Serializable
 

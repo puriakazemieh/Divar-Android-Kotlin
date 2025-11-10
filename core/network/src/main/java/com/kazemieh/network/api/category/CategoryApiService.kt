@@ -1,6 +1,6 @@
-package com.kazemieh.network.api
+package com.kazemieh.network.api.category
 
-import com.divar.network.dto.CategoryResponse
+import com.kazemieh.network.dto.category.CategoryResponse
 import com.kazemieh.network.model.SuccessResponse
 import retrofit2.http.GET
 

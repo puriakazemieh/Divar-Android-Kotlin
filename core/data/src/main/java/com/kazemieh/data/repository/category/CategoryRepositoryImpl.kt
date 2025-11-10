@@ -1,13 +1,13 @@
-package com.kazemieh.data.repository
+package com.kazemieh.data.repository.category
 
-import com.kazemieh.network.api.CategoryApiService
-import com.kazemieh.data.mapper.toDomain
+import com.kazemieh.data.mapper.category.toDomain
 import com.kazemieh.data.utils.safeCall
-import com.kazemieh.domain.model.Category
 import com.kazemieh.domain.model.DataResult
+import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
-import com.kazemieh.domain.repository.CategoryRepository
+import com.kazemieh.domain.repository.category.CategoryRepository
+import com.kazemieh.network.api.category.CategoryApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

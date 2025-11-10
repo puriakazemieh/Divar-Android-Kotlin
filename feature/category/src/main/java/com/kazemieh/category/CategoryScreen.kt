@@ -26,7 +26,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kazemieh.category.component.CategoryItem
 import com.kazemieh.ui.core.ui_message.UiMessageScreen
 import com.kazemieh.domain.fake_data.FakeData
-import com.kazemieh.domain.model.Category
+import com.kazemieh.domain.model.category.Category
 import com.kazemieh.ui.core.list.SwipeList
 import com.kazemieh.ui.core.text.TitleMediumText
 import com.kazemieh.ui.extension.baseModifier

@@ -15,4 +15,5 @@ android {
 
 dependencies {
 //    implementation(project(":core:utils"))
+    implementation(project(":core:domain"))
 }

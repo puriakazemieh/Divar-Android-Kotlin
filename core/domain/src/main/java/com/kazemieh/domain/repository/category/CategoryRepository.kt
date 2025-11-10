@@ -1,7 +1,7 @@
-package com.kazemieh.domain.repository
+package com.kazemieh.domain.repository.category
 
-import com.kazemieh.domain.model.Category
 import com.kazemieh.domain.model.DataResult
+import com.kazemieh.domain.model.category.Category
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository {

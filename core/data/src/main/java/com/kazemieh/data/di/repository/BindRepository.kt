@@ -1,7 +1,9 @@
 package com.kazemieh.data.di.repository
 
-import com.kazemieh.data.repository.CategoryRepositoryImpl
-import com.kazemieh.domain.repository.CategoryRepository
+import com.kazemieh.data.repository.ads.AdsSummaryRepositoryImpl
+import com.kazemieh.data.repository.category.CategoryRepositoryImpl
+import com.kazemieh.domain.repository.ads.AdsSummaryRepository
+import com.kazemieh.domain.repository.category.CategoryRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,4 +15,7 @@ interface BindRepository {
 
     @Binds
     fun bindCategoryRepository(categoryRepositoryImpl: CategoryRepositoryImpl): CategoryRepository
+
+    @Binds
+    fun bindAdsSummary(repo: AdsSummaryRepositoryImpl): AdsSummaryRepository
 }

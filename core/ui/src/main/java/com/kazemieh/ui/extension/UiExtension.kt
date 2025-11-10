@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kazemieh.ui.theme.AppTheme
+import java.util.Locale
 
 @Composable
 fun LazyListState.OnBottomReached(
@@ -79,4 +80,11 @@ fun Modifier.animateClickable(onClick: (() -> Unit)): Modifier = composed {
             indication = null,
             onClick = onClick
         )
+}
+
+
+fun String.toPrice(): String {
+    this.toIntOrNull()?.let { number ->
+        return String.format(Locale.getDefault(), "%,d", number)
+    } ?: return ""
 }

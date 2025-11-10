@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.divar.ui.model.UiMessage
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
-import com.kazemieh.domain.usecase.GetCategoriesUseCase
+import com.kazemieh.domain.usecase.category.GetCategoriesUseCase
 import com.kazemieh.ui.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList

@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
 import testImplementation
 import testRuntimeOnly
+import kotlin.text.get
 
 internal fun Project.kotlinAndroidGradleExtension(
     commonExtension: CommonExtension<*, *, *, *, *, *>
@@ -22,6 +23,7 @@ internal fun Project.kotlinAndroidGradleExtension(
         defaultConfig {
             minSdk = 24
             version = 1
+            buildConfigField("String", "BaseUrl", properties["BaseUrl"].toString())
         }
 
         buildFeatures {
@@ -32,6 +34,7 @@ internal fun Project.kotlinAndroidGradleExtension(
             isCoreLibraryDesugaringEnabled = true
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
+
         }
 
         configureKotlin<KotlinAndroidProjectExtension>()

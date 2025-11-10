@@ -1,6 +1,7 @@
 package com.kazemieh.network.di
 
-import com.kazemieh.network.api.CategoryApiService
+import com.kazemieh.network.api.ads.AdsSummaryApiService
+import com.kazemieh.network.api.category.CategoryApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +20,10 @@ object ProvideApiServices {
         return retrofit.create(CategoryApiService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideAdsSummaryApiService(retrofit: Retrofit): AdsSummaryApiService {
+        return retrofit.create(AdsSummaryApiService::class.java)
+    }
 
 }

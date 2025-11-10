@@ -1,4 +1,4 @@
-package com.kazemieh.domain.model
+package com.kazemieh.domain.model.category
 
 data class Category(
     val name: String,

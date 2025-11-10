@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.kazemieh.domain.fake_data.FakeData
 import com.kazemieh.ui.utils.svgCoil
-import com.kazemieh.domain.model.Category
+import com.kazemieh.domain.model.category.Category
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.theme.AppTheme

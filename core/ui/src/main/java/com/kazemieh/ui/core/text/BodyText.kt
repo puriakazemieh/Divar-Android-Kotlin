@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.kazemieh.ui.theme.AppTheme
 
@@ -33,12 +34,18 @@ fun BodyLargeText(
     text: String,
     textStyle: TextStyle = AppTheme.typography.bodyLarge,
     textAlign: TextAlign = TextAlign.Start,
-    color: Color = AppTheme.colors.textColor
+    color: Color = AppTheme.colors.textColor,
+    minLines: Int = 1,
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip,
 ) {
     Text(
         modifier = modifier,
         text = text,
-        style = textStyle.copy(textAlign = textAlign, color = color)
+        style = textStyle.copy(textAlign = textAlign, color = color),
+        minLines = minLines,
+        maxLines = maxLines,
+        overflow = overflow
     )
 }
 
@@ -51,11 +58,7 @@ fun BodyMediumText(
     color: Color = AppTheme.colors.textColor,
     textDirection: TextDirection = TextDirection.Rtl,
 ) {
-    Text(
-        modifier = modifier,
-        text = text,
-        style = textStyle.copy(textAlign = textAlign, color = color, textDirection = textDirection)
-    )
+    Text(modifier = modifier, text = text, style = textStyle.copy(textAlign = textAlign, color = color, textDirection = textDirection))
 }
 
 
