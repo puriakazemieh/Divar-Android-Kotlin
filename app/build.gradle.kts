@@ -10,10 +10,10 @@ plugins {
 android {
 
 
-    namespace = "com.kazemieh.application"
+    namespace = "com.kazemieh.divar"
 
     defaultConfig {
-        applicationId = "com.kazemieh.application"
+        applicationId = "com.kazemieh.divar"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -32,12 +32,13 @@ android {
 dependencies {
 
 implementation(project(":core:database"))
-implementation(project(":core:utils"))
+//implementation(project(":core:utils"))
 implementation(project(":core:network"))
 implementation(project(":core:secure-shared-pref"))
 implementation(project(":core:ui"))
 implementation(project(":core:data"))
 implementation(project(":core:domain"))
+implementation(project(":feature:category"))
 
 
 //    implementation(libs.androidx.core.ktx)

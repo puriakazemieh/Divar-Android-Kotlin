@@ -7,7 +7,6 @@ import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.usecase.GetCategoriesUseCase
 import com.kazemieh.ui.viewmodel.BaseViewModel
-import com.kazemieh.utils.dLog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ class CategoryViewModel @Inject constructor(
                 }.onFailure { apiError ->
                     setState { copy(isRefreshing = false) }
                     setUiMessage(UiMessage(stringValue = apiError.message))
-                    apiError.dLog("")
+//                    apiError.dLog("")
                 }
             }
         }

@@ -15,5 +15,5 @@ room {
 }
 
 dependencies {
-    implementation(project(":core:utils"))
+//    implementation(project(":core:utils"))
 }

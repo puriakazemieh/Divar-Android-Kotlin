@@ -30,7 +30,7 @@ class FeatureConvention : Plugin<Project> {
 
     private fun Project.applyDependencies() {
         dependencies {
-            implementation(project(":core:utils"))
+//            implementation(project(":core:utils"))
             implementation(project(":core:ui"))
         }
     }
