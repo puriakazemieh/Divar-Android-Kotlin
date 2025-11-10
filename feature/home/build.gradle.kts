@@ -3,8 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "com.divar.category"
+    namespace = "com.kazemieh.home"
+
 }
 
 dependencies {
+
 }

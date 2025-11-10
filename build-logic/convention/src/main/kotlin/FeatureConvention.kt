@@ -32,6 +32,7 @@ class FeatureConvention : Plugin<Project> {
         dependencies {
 //            implementation(project(":core:utils"))
             implementation(project(":core:ui"))
+            implementation(project(":core:domain"))
         }
     }
 }
