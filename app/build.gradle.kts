@@ -1,6 +1,7 @@
 plugins {
     id("convention.android.application")
     id("convention.android.application.compose")
+    id("convention.android.hilt")
 //    alias(libs.plugins.android.application)
 //    alias(libs.plugins.jetbrains.kotlin.android)
 //    alias(libs.plugins.compose.compiler)

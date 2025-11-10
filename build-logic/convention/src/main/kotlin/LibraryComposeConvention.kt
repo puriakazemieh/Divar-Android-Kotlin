@@ -17,7 +17,7 @@ class LibraryComposeConvention : Plugin<Project> {
     private fun Project.applyPlugins() {
         pluginManager.apply {
             apply(plugin ="com.android.library")
-            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+//            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
         }
     }
 
