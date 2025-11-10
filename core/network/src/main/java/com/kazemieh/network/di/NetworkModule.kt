@@ -69,7 +69,7 @@ object EncryptSharedModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient.Builder, json: Json): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.69.157:8080/api/")
+            .baseUrl("http://192.168.141.56:8080/api/")
             .addConverterFactory(json.asConverterFactory("application/jscon".toMediaType()))
             .client(client.build())
             .build()

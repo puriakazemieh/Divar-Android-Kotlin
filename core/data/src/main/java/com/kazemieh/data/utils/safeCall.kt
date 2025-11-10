@@ -11,7 +11,7 @@ import kotlinx.serialization.json.Json
 suspend fun <T> safeCall(execute: suspend () -> SuccessResponse<T>): DataResult<T> {
     return try {
         val response = execute()
-        if (response.status == Status.Success) {
+        if (response.status == Status.SUCCESS) {
             DataResult.Success(response.data!!, response.message)
         } else {
             DataResult.Failure(ServerError(504))

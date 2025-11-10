@@ -1,5 +1,6 @@
 package com.kazemieh.category
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.divar.ui.model.UiMessage
@@ -37,6 +38,7 @@ class CategoryViewModel @Inject constructor(
                 }.onFailure { apiError ->
                     setState { copy(isRefreshing = false) }
                     setUiMessage(UiMessage(stringValue = apiError.message))
+                    Log.d("949494", "getCategories: ${apiError.message}")
 //                    apiError.dLog("")
                 }
             }

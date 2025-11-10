@@ -7,7 +7,7 @@ fun CategoryResponse.toDomain(): Category {
     return Category(
         id = id,
         name = name,
-        icon = "http://192.168.69.157:8080/$icon",
+        icon = "http://192.168.141.56:8080/$icon",
         children = children.map { it.toDomain() }
     )
 }
