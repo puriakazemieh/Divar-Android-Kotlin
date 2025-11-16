@@ -3,7 +3,7 @@ package com.kazemieh.category
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.divar.ui.model.UiMessage
+import com.kazemieh.ui.model.UiMessage
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.usecase.category.GetCategoriesUseCase

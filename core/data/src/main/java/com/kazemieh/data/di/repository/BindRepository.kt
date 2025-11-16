@@ -2,8 +2,10 @@ package com.kazemieh.data.di.repository
 
 import com.kazemieh.data.repository.ads.AdsSummaryRepositoryImpl
 import com.kazemieh.data.repository.category.CategoryRepositoryImpl
+import com.kazemieh.data.repository.location.LocationRepositoryImpl
 import com.kazemieh.domain.repository.ads.AdsSummaryRepository
 import com.kazemieh.domain.repository.category.CategoryRepository
+import com.kazemieh.domain.repository.location.LocationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +20,7 @@ interface BindRepository {
 
     @Binds
     fun bindAdsSummary(repo: AdsSummaryRepositoryImpl): AdsSummaryRepository
+
+    @Binds
+    fun bindLocation(repo: LocationRepositoryImpl): LocationRepository
 }

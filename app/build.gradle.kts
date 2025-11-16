@@ -26,23 +26,26 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
 
 dependencies {
 
-implementation(project(":core:database"))
+    implementation(project(":core:database"))
 //implementation(project(":core:utils"))
-implementation(project(":core:network"))
-implementation(project(":core:secure-shared-pref"))
-implementation(project(":core:ui"))
-implementation(project(":core:data"))
-implementation(project(":core:domain"))
-implementation(project(":feature:category"))
-implementation(project(":feature:home"))
-
+    implementation(project(":core:network"))
+    implementation(project(":core:secure-shared-pref"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":feature:category"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:location"))
 
 //    implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.lifecycle.runtime.ktx)

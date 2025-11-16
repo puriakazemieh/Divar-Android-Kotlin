@@ -3,7 +3,8 @@ package com.kazemieh.domain.fake_data
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.image.Image
-import com.kazemieh.domain.model.neighborhood.Neighborhood
+import com.kazemieh.domain.model.location.City
+import com.kazemieh.domain.model.location.Neighborhood
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -191,5 +192,15 @@ object FakeData {
             )
         )
     }
+
+    fun provideCities(): List<City> {
+        return listOf(
+            City(id = 1, name = "تهران", neighborhoods = listOf()),
+            City(id = 2, name = "مشهد", neighborhoods = listOf()),
+            City(id = 3, name = "رشت", neighborhoods = listOf()),
+            City(id = 4, name = "شیراز", neighborhoods = listOf())
+        )
+    }
+
 
 }

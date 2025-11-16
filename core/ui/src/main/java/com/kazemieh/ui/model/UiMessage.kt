@@ -1,4 +1,4 @@
-package com.divar.ui.model
+package com.kazemieh.ui.model
 
 enum class MessageType { Network, System }
 enum class MessageStatus { Success, Failure }

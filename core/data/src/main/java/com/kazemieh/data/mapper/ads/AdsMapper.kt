@@ -1,7 +1,7 @@
 package com.kazemieh.data.mapper.ads
 
 import com.kazemieh.data.mapper.image.toDomain
-import com.kazemieh.data.mapper.neighborhood.toDomain
+import com.kazemieh.data.mapper.location.toDomain
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.network.dto.ads.AdsSummaryResponse
 

@@ -1,5 +1,6 @@
 package com.kazemieh.data.utils
 
+import android.util.Log
 import com.kazemieh.domain.model.ApiError
 import com.kazemieh.domain.model.DataResult
 import com.kazemieh.domain.model.ServerError
@@ -14,9 +15,11 @@ suspend fun <T> safeCall(execute: suspend () -> SuccessResponse<T>): DataResult<
         if (response.status == Status.SUCCESS) {
             DataResult.Success(response.data!!, response.message)
         } else {
+            Log.d("949494", " else ")
             DataResult.Failure(ServerError(504))
         }
     } catch (e: Throwable) {
+        Log.d("949494", " $e ")
         DataResult.Failure(getApiError(e))
     }
 }

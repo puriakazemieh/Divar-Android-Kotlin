@@ -3,7 +3,7 @@ package com.kazemieh.ui.viewmodel
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.divar.ui.model.UiMessage
+import com.kazemieh.ui.model.UiMessage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

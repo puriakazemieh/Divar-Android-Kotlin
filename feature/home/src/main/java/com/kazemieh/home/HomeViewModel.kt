@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.kazemieh.domain.model.paginate.addMore
 import com.kazemieh.domain.usecase.ads.GetAdsSummaryUseCase
-import com.divar.ui.model.UiMessage
+import com.kazemieh.ui.model.UiMessage
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess

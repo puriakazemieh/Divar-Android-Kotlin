@@ -6,4 +6,6 @@
     <string name="failed_screen_message">خطایی پیش اومده!</string>
     <string name="search_on_categories">جستجو در دسته ها…</string>
 
+    <string name="choose_your_city">شهر خود را انتخاب کنید</string>
+    <string name="search_on_cities">جستجو در شهرها</string>
 </resources>

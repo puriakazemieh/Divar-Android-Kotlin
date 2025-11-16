@@ -1,7 +1,7 @@
 package com.kazemieh.network.dto.ads
 
 import com.kazemieh.network.dto.image.ImageResponse
-import com.kazemieh.network.dto.neighborhood.NeighborhoodResponse
+import com.kazemieh.network.dto.location.NeighborhoodResponse
 import kotlinx.serialization.Serializable
 
 @Serializable

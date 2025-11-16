@@ -1,7 +1,7 @@
 package com.kazemieh.domain.model.ads
 
 import com.kazemieh.domain.model.image.Image
-import com.kazemieh.domain.model.neighborhood.Neighborhood
+import com.kazemieh.domain.model.location.Neighborhood
 
 data class AdsSummary(
     val id: Long,

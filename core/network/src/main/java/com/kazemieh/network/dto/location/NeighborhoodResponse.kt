@@ -1,4 +1,4 @@
-package com.kazemieh.network.dto.neighborhood
+package com.kazemieh.network.dto.location
 
 import kotlinx.serialization.Serializable
 

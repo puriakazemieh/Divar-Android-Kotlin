@@ -17,9 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.divar.ui.model.MessageStatus
-import com.divar.ui.model.UiMessage
-import com.divar.ui.model.UiMessageContent
+import com.kazemieh.ui.model.MessageStatus
+import com.kazemieh.ui.model.UiMessage
+import com.kazemieh.ui.model.UiMessageContent
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.theme.AppTheme
 import kotlinx.coroutines.flow.SharedFlow
