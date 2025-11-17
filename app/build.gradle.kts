@@ -46,6 +46,9 @@ dependencies {
     implementation(project(":feature:category"))
     implementation(project(":feature:home"))
     implementation(project(":feature:location"))
+    implementation(project(":feature:Splash"))
+
+    implementation(libs.androidx.core.splashscreen)
 
 //    implementation(libs.androidx.core.ktx)
 //    implementation(libs.androidx.lifecycle.runtime.ktx)
