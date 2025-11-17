@@ -1,6 +1,8 @@
 package com.kazemieh.divar.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.kazemieh.location.navigation.locationScreen
@@ -14,27 +16,57 @@ import com.kazemieh.ui.extension.runWithLifecycleAware
 @Composable
 fun AppNavigation() {
 
-    val navController = rememberNavController()
+    val rootNavController = rememberNavController()
+    val mainNavController = rememberNavController()
+
 
     NavHost(
-        navController = navController,
+        navController = rootNavController,
         startDestination = splashRoute
     )
     {
         splashScreen(
             onMoveToMain = {
-                navController.runWithLifecycleAware { navController.navigateToMain() }
+                rootNavController.navigateToMain()
+//                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
             },
             onMoveToLocation = {
-                navController.runWithLifecycleAware { navController.navigateToLocation() }
+                Log.d("949494", "AppNavigation: onMoveToLocation")
+                rootNavController.navigateToLocation()
+//                rootNavController.runWithLifecycleAware { rootNavController.navigateToLocation() }
             }
         )
 
-        mainScreen()
+        mainScreen(
+            bottomBarItems = provideBottomBars(),
+            mainNavigation = { MainNavigation(navController = mainNavController) },
+            onChangeBottomBar = {
+                it.route.takeIf { bottomBarItem -> bottomBarItem.isNotEmpty() }?.let { route ->
+                    mainNavController.runWithLifecycleAware {
+                        navigate(route) {
+                            // Pop up to the start destination of the graph to
+                            // avoid building up a large stack of destinations
+                            // on the back stack as users select items
+                            popUpTo(mainNavController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+
+                            // Avoid multiple copies of the same destination when
+                            // re-selecting the same item
+                            launchSingleTop = true
+
+                            // Restore state when re-selecting a previously selected item
+                            restoreState = true
+                        }
+                    }
+                }
+            }
+        )
+
 
         locationScreen(
             onMoveToMain = {
-                navController.runWithLifecycleAware { navController.navigateToMain() }
+                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
             }
         )
     }

@@ -37,7 +37,7 @@ fun HomeToolbar(
         Modifier
             .fillMaxWidth()
             .background(AppTheme.colors.itemColor)
-            .padding(4.dp)
+            .padding(8.dp)
             .border(1.dp, AppTheme.colors.hintColor, shape = AppTheme.shapes.roundExtraSmall)
             .padding(4.dp)
             .then(modifier),

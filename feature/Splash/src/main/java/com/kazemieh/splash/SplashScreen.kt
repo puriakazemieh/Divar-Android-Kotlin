@@ -2,6 +2,7 @@ package com.kazemieh.splash
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,7 +23,7 @@ fun SplashScreen(
     onMoveToMain: () -> Unit,
     onMoveToLocation: () -> Unit,
 ) {
-
+    Log.d("949494", "SplashScreen: ")
     val uiState = vm.uiState.collectAsState().value
     LocalContext.current.getActivity()?.let {
         val splashAi = it.installSplashScreen()
@@ -32,6 +33,7 @@ fun SplashScreen(
     }
 
     LaunchedEffect(key1 = uiState.userIsSelectedCity) {
+        Log.d("949494", "SplashScreen: ${uiState.userIsSelectedCity}")
         if (uiState.userIsSelectedCity == true) onMoveToMain()
         else if (uiState.userIsSelectedCity == false) onMoveToLocation()
     }

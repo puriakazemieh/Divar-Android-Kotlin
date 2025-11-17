@@ -62,7 +62,7 @@ fun HomeScreen(
     }
 
     HomeScreenContent(
-        modifier = Modifier.baseModifier(),
+        modifier = Modifier.baseModifier(0.dp),
         isRefreshing = uiState.isLoading,
         isLoadMore = uiState.isLoadMore,
         ads = uiState.ads,

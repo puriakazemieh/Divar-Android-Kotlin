@@ -1,5 +1,6 @@
 package com.kazemieh.location
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -53,6 +54,7 @@ fun LocationScreen(
     onMoveToMain: () -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
+    Log.d("949494", "LocationScreen: ")
     LaunchedEffect(key1 = uiState.cityIsSelected) {
         if (uiState.cityIsSelected) {
             onMoveToMain()
