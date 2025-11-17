@@ -2,6 +2,7 @@ package com.kazemieh.network.di
 
 import com.kazemieh.network.api.ads.AdsSummaryApiService
 import com.kazemieh.network.api.category.CategoryApiService
+import com.kazemieh.network.api.category.CategoryOfAdsApiService
 import com.kazemieh.network.api.location.LocationApiService
 import dagger.Module
 import dagger.Provides
@@ -33,4 +34,9 @@ object ProvideApiServices {
         return retrofit.create(LocationApiService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideCategoryOfAdsApiService(retrofit: Retrofit): CategoryOfAdsApiService {
+        return retrofit.create(CategoryOfAdsApiService::class.java)
+    }
 }

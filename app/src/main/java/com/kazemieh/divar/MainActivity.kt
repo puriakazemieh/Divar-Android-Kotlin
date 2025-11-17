@@ -9,6 +9,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.kazemieh.divar.navigation.AppNavigation
+import com.kazemieh.search.SearchScreen
 import com.kazemieh.ui.theme.AppTheme
 import com.kazemieh.ui.theme.StatusBarDark
 import com.kazemieh.ui.theme.StatusBarLight
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
                 )
             }
             AppTheme {
-                AppNavigation()
+//                AppNavigation()
+                SearchScreen(){}
             }
         }
     }

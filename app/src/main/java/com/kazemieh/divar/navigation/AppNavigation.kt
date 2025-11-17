@@ -9,6 +9,7 @@ import com.kazemieh.location.navigation.locationScreen
 import com.kazemieh.location.navigation.navigateToLocation
 import com.kazemieh.main.navigation.mainScreen
 import com.kazemieh.main.navigation.navigateToMain
+import com.kazemieh.search.navigation.searchScreen
 import com.kazemieh.splash.navigation.splashRoute
 import com.kazemieh.splash.navigation.splashScreen
 import com.kazemieh.ui.extension.runWithLifecycleAware
@@ -69,6 +70,9 @@ fun AppNavigation() {
                 rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
             }
         )
+        searchScreen(onSelected = {
+
+        })
     }
 
 }
