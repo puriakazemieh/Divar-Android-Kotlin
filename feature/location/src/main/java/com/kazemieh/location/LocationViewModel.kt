@@ -50,6 +50,8 @@ class LocationViewModel @Inject constructor(
     private fun saveCity() {
         viewModelScope.launch {
             saveCityUseCase.invoke(currentState.selectedCity!!)
+            setState { copy(cityIsSelected = true) }
+
         }
     }
 

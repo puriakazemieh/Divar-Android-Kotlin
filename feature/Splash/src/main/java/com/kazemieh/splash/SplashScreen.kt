@@ -4,25 +4,38 @@ import android.content.Context
 import android.content.ContextWrapper
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.kazemieh.ui.core.ui_message.UiMessageScreen
 import com.kazemieh.ui.extension.baseModifier
 
 
 @Composable
 fun SplashScreen(
-    splash: SplashScreen,
-    vm: SplashViewModel = hiltViewModel()
+    vm: SplashViewModel = hiltViewModel(),
+    onMoveToMain: () -> Unit,
+    onMoveToLocation: () -> Unit,
 ) {
-    val uiState = vm.uiState.collectAsState().value
 
-    splash.setKeepOnScreenCondition {
-        uiState.userIsSelectedCity == null
+    val uiState = vm.uiState.collectAsState().value
+    LocalContext.current.getActivity()?.let {
+        val splashAi = it.installSplashScreen()
+        splashAi.setKeepOnScreenCondition {
+            uiState.userIsSelectedCity == null
+        }
     }
+
+    LaunchedEffect(key1 = uiState.userIsSelectedCity) {
+        if (uiState.userIsSelectedCity == true) onMoveToMain()
+        else if (uiState.userIsSelectedCity == false) onMoveToLocation()
+    }
+
 
     SplashScreenContent(Modifier.baseModifier())
 

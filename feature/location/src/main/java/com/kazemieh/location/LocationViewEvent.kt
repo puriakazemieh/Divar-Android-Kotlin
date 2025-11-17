@@ -11,6 +11,7 @@ data class LocationUiState(
     val isLoading: Boolean = true,
     val searchText: String = "",
     val cities: ImmutableList<City>? = null,
+    val cityIsSelected: Boolean = false,
     val selectedCity: City? = null,
 ) : UiState
 

@@ -22,6 +22,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,9 +50,14 @@ import kotlinx.collections.immutable.toImmutableList
 @Composable
 fun LocationScreen(
     vm: LocationViewModel = hiltViewModel(),
+    onMoveToMain: () -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
-
+    LaunchedEffect(key1 = uiState.cityIsSelected) {
+        if (uiState.cityIsSelected) {
+            onMoveToMain()
+        }
+    }
     LocationScreenContent(
         modifier = Modifier.baseModifier(padding = 0.dp),
         cities = uiState.cities,

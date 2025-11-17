@@ -19,6 +19,8 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import com.kazemieh.ui.theme.AppTheme
 import java.util.Locale
 
@@ -87,4 +89,11 @@ fun String.toPrice(): String {
     this.toIntOrNull()?.let { number ->
         return String.format(Locale.getDefault(), "%,d", number)
     } ?: return ""
+}
+
+
+
+fun NavController.runWithLifecycleAware(block: NavController.() -> Unit) {
+    if (currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED)
+        block()
 }

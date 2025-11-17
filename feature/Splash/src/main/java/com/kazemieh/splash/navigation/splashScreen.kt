@@ -9,12 +9,16 @@ import com.kazemieh.splash.SplashScreen
 const val splashRoute = "splash_route"
 
 fun NavGraphBuilder.splashScreen(
-    splash: SplashScreen,
+    onMoveToMain: () -> Unit,
+    onMoveToLocation: () -> Unit,
 ) {
     composable(
         route = splashRoute,
     ) {
-        SplashScreen(splash)
+        SplashScreen(
+            onMoveToMain = onMoveToMain,
+            onMoveToLocation = onMoveToLocation
+        )
     }
 }
 
