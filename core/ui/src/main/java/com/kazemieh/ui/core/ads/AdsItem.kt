@@ -27,6 +27,7 @@ import com.kazemieh.ui.R
 import com.kazemieh.ui.core.text.BodyLargeText
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.extension.animateClickable
+import com.kazemieh.ui.extension.relativeTime
 import com.kazemieh.ui.extension.toPrice
 import com.kazemieh.ui.theme.AppTheme
 import com.kazemieh.ui.utils.coilRounded
@@ -77,7 +78,7 @@ fun AdsItem(
             )
 
             BodyMediumText(
-                text = adsSummary.createAt ?: "",
+                text = adsSummary.createAt.relativeTime(),
                 color = AppTheme.colors.hintColor
             )
         }

@@ -70,7 +70,7 @@ object EncryptSharedModule {
     fun provideRetrofit(client: OkHttpClient.Builder, json: Json): Retrofit {
         return Retrofit.Builder()
             .baseUrl("${BuildConfig.BaseUrl}/api/")
-            .addConverterFactory(json.asConverterFactory("application/jscon".toMediaType()))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .client(client.build())
             .build()
     }

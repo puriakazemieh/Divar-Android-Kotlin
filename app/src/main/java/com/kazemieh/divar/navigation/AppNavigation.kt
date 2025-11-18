@@ -5,10 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.kazemieh.ads.navigation.navigateToAds
+import com.kazemieh.domain.model.category.Category
+import com.kazemieh.domain.model.filter.AdsFilter
 import com.kazemieh.location.navigation.locationScreen
 import com.kazemieh.location.navigation.navigateToLocation
 import com.kazemieh.main.navigation.mainScreen
 import com.kazemieh.main.navigation.navigateToMain
+import com.kazemieh.search.navigation.navigateToSearch
 import com.kazemieh.search.navigation.searchScreen
 import com.kazemieh.splash.navigation.splashRoute
 import com.kazemieh.splash.navigation.splashScreen
@@ -40,7 +44,17 @@ fun AppNavigation() {
 
         mainScreen(
             bottomBarItems = provideBottomBars(),
-            mainNavigation = { MainNavigation(navController = mainNavController) },
+            mainNavigation = {
+                MainNavigation(
+                    navController = mainNavController,
+                    onSearch = {
+                        rootNavController.runWithLifecycleAware {
+                            navigateToSearch(it?.searchText ?: "")
+                        }
+                    },
+                    onCity = {}
+                )
+            },
             onChangeBottomBar = {
                 it.route.takeIf { bottomBarItem -> bottomBarItem.isNotEmpty() }?.let { route ->
                     mainNavController.runWithLifecycleAware {
@@ -65,14 +79,32 @@ fun AppNavigation() {
         )
 
 
+
         locationScreen(
             onMoveToMain = {
                 rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
             }
         )
-        searchScreen(onSelected = {
 
-        })
+        searchScreen(
+            onSelected = {
+                rootNavController.popBackStack()
+                mainNavController.navigateToAds(
+                    AdsFilter(
+                        category = Category(
+                            id = it.categoryId,
+                            name = it.categoryName,
+                            icon = "",
+                            children = listOf()
+                        ),
+                        searchText = it.adsTitle
+                    )
+                )
+            },
+            onBack = {
+                rootNavController.popBackStack()
+            }
+        )
     }
 
 }

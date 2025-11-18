@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.kazemieh.domain.model.category.CategoryOfAds
 import com.kazemieh.ui.core.text.BodyMediumText
+import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.theme.AppTheme
 
 @Composable
@@ -22,7 +23,9 @@ fun CategoryOfAdsItem(
     onClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .animateClickable(onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically)
     ) {

@@ -48,6 +48,9 @@ import kotlinx.collections.immutable.toImmutableList
 @Composable
 fun HomeScreen(
     vm: HomeViewModel = hiltViewModel(),
+    onCity: () -> Unit = {},
+    onSearch: () -> Unit = {},
+    onSelectedCategory: (Category) -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
     val scrollState = rememberScrollState()
@@ -60,7 +63,11 @@ fun HomeScreen(
             vm.onTriggerEvent(HomeUiEvent.OnLoadMore)
         }
     }
-
+    LaunchedEffect(key1 = uiState.selectedCategory) {
+        if (uiState.selectedCategory != null) {
+            onSelectedCategory(uiState.selectedCategory)
+        }
+    }
     HomeScreenContent(
         modifier = Modifier.baseModifier(0.dp),
         isRefreshing = uiState.isLoading,
@@ -69,6 +76,9 @@ fun HomeScreen(
         categories = uiState.categories,
         scrollState = scrollState,
         emptyCategoryCount = uiState.emptyCategoryCount,
+        cityName = uiState.userCity?.name ?: "",
+        onCity = onCity,
+        onSearch = onSearch,
         onAction = { vm.onTriggerEvent(it) }
     )
 
@@ -98,7 +108,10 @@ fun HomeScreenContent(
     categories: ImmutableList<Category>?,
     ads: Paging<ImmutableList<AdsSummary>>?,
     scrollState: ScrollState = rememberScrollState(),
-    onAction: OnAction
+    cityName: String = "",
+    onAction: OnAction,
+    onCity: () -> Unit = {},
+    onSearch: () -> Unit = {},
 ) {
     val state = rememberPullToRefreshState()
 
@@ -110,9 +123,9 @@ fun HomeScreenContent(
 
         HomeToolbar(
             modifier = Modifier,
-            cityName = "",
-            onCity = {},
-            onSearch = {}
+            cityName = cityName,
+            onCity = onCity,
+            onSearch = onSearch
         )
         PullToRefreshBox(
             modifier = Modifier.fillMaxSize(),
@@ -171,7 +184,11 @@ fun HomeScreenContent(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                FlowColumn {
+                FlowColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
                     ads?.content?.forEachIndexed { index, adsSummary ->
                         AdsItem(adsSummary = adsSummary, onClick = {})
                         if (index != ads.content.size - 1) {
@@ -203,17 +220,21 @@ fun HomeScreenContent(
 }
 
 
+
 @PreviewLightDark
 @Composable
 private fun Preview() {
-    HomeScreenContent(
-        modifier = Modifier.baseModifier(),
-        isRefreshing = false,
-        isLoadMore = false,
-        categories = FakeData.provideCategories(),
-        ads = Paging(FakeData.provideAdsSummary().toImmutableList()),
-        onAction = {
+    AppTheme {
+        HomeScreenContent(
+            modifier = Modifier.baseModifier(),
+            isRefreshing = false,
+            isLoadMore = false,
+            categories = FakeData.provideCategories(),
+            ads = Paging(FakeData.provideAdsSummary().toImmutableList()),
+            onAction = {
 
-        }
-    )
+            }
+        )
+    }
 }
+

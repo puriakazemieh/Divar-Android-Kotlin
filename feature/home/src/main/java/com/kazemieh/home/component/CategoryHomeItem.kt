@@ -1,7 +1,5 @@
 package com.kazemieh.home.component
 
-import android.R.attr.background
-import android.R.id.background
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -62,7 +60,7 @@ fun CategoryHomeItem(
 private fun Preview() {
     AppTheme {
         CategoryHomeItem(
-            modifier =  Modifier.background(AppTheme.colors.backgroundColor),
+            modifier = Modifier.background(AppTheme.colors.backgroundColor),
             category = FakeData.provideCategories().first(),
             onClick = {}
         )

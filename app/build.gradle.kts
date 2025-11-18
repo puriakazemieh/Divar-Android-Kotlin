@@ -51,6 +51,8 @@ dependencies {
     implementation(project(":feature:chat"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:ads"))
+
 
 
 

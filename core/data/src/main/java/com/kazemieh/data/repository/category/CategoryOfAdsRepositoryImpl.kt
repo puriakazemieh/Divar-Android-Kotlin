@@ -11,19 +11,20 @@ import com.kazemieh.network.api.category.CategoryOfAdsApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import kotlin.onFailure
+import kotlin.onSuccess
 
 class CategoryOfAdsRepositoryImpl @Inject constructor(
     private val apiService: CategoryOfAdsApiService
 ) : CategoryOfAdsRepository {
 
-    override suspend fun getCategoriesOfAds(searchText: String): Flow<DataResult<List<CategoryOfAds>>> =
-        flow {
-            safeCall { apiService.getCategoriesOfAds(searchText) }
-                .onSuccess { data ->
-                    emit(DataResult.Success(data.map { it.toDomain() }))
-                }.onFailure {
-                    emit(DataResult.Failure(it))
-                }
-        }
 
+    override suspend fun getCategoriesOfAds(searchText: String, cityId: Long): Flow<DataResult<List<CategoryOfAds>>> = flow{
+        safeCall { apiService.getCategoriesOfAds(searchText, cityId) }
+            .onSuccess { data ->
+                emit(DataResult.Success(data.map { it.toDomain() }))
+            }.onFailure {
+                emit(DataResult.Failure(it))
+            }
+    }
 }

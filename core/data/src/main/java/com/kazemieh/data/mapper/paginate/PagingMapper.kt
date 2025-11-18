@@ -6,7 +6,7 @@ import com.kazemieh.network.dto.paginate.PagingResponse
 fun <T, R> PagingResponse<T>.toDomain(contentMapper: (T) -> R): Paging<R> {
     return Paging(
         content = contentMapper(content),
-        totalPage = totalPage,
+        totalPage = totalPages,
         totalElements = totalElements,
         isFirst = isFirst,
         isLast = isLast

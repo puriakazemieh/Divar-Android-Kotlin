@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,13 +24,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.kazemieh.category.component.CategoryItem
-import com.kazemieh.ui.core.ui_message.UiMessageScreen
 import com.kazemieh.domain.fake_data.FakeData
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.ui.core.list.SwipeList
 import com.kazemieh.ui.core.text.TitleMediumText
+import com.kazemieh.ui.core.ui_message.UiMessageScreen
+import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.extension.baseModifier
 import com.kazemieh.ui.theme.AppTheme
 import kotlinx.collections.immutable.ImmutableList
@@ -36,9 +38,18 @@ import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun CategoryScreen(
-    vm: CategoryViewModel = hiltViewModel(),
+    vm: CategoryViewModel = androidx.hilt.navigation.compose.hiltViewModel(),
+    onCategory: (Category) -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
+
+    LaunchedEffect(key1 = uiState.selectedCategory) {
+        if (uiState.selectedCategory != null) {
+            onCategory(uiState.selectedCategory)
+            vm.onTriggerEvent(CategoryUiEvent.OnClearSelectedCategory)
+        }
+    }
+
 
     CategoryScreenContent(
         modifier = Modifier
@@ -56,6 +67,7 @@ fun CategoryScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreenContent(
     modifier: Modifier = Modifier,
@@ -83,6 +95,7 @@ fun CategoryScreenContent(
                 Spacer(modifier = Modifier.width(12.dp))
                 Icon(
                     modifier = Modifier
+                        .animateClickable { onAction(CategoryUiEvent.OnBackInCategoryDialog) }
                         .size(18.dp),
                     painter = painterResource(id = com.kazemieh.ui.R.drawable.ic_arrow_right),
                     contentDescription = "back icon",
@@ -96,7 +109,7 @@ fun CategoryScreenContent(
         SwipeList(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(0.dp),
             isRefreshing = isRefreshing,
             isLoadMore = isLoadMore,
             listSize = list?.size,

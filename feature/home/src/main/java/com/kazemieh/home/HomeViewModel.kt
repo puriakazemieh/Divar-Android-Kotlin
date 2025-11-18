@@ -2,14 +2,16 @@ package com.kazemieh.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.kazemieh.domain.model.paginate.addMore
-import com.kazemieh.domain.usecase.ads.GetAdsSummaryUseCase
-import com.kazemieh.ui.model.UiMessage
 import com.kazemieh.domain.model.category.Category
+import com.kazemieh.domain.model.filter.AdsFilter
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
+import com.kazemieh.domain.model.paginate.addMore
+import com.kazemieh.domain.usecase.ads.GetAdsSummaryUseCase
 import com.kazemieh.domain.usecase.category.GetCategoriesUseCase
+import com.kazemieh.domain.usecase.location.GetUserCityUseCase
 import com.kazemieh.ui.extension.immutableListOf
+import com.kazemieh.ui.model.UiMessage
 import com.kazemieh.ui.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
@@ -21,12 +23,27 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle?,
     private val getAdsSummaryUseCase: GetAdsSummaryUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val getUserCityUseCase: GetUserCityUseCase
 ) : BaseViewModel<HomeUiState, HomeUiEvent>() {
 
     init {
-        getCategories()
-        getAds()
+        getUserCity()
+    }
+
+    private fun getUserCity() {
+        viewModelScope.launch {
+            getUserCityUseCase.invoke().collect {
+                it.onSuccess {
+                    setState { copy(userCity = it) }
+                    getCategories()
+                    getAds()
+                }.onFailure { apiError ->
+                    setState { copy(isLoading = false) }
+                    setUiMessage(UiMessage(stringValue = apiError.message))
+                }
+            }
+        }
     }
 
     override fun createInitialState() = HomeUiState()
@@ -48,14 +65,18 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeUiEvent.OnSelectedCategory -> {
-                setState {
-                    copy(
-                        selectedCategories =
-                            selectedCategories?.toMutableList()?.apply { add(event.category) }
-                                ?.toImmutableList()
-                                ?: listOf(event.category).toImmutableList(),
-                        showCategories = event.category.children.toImmutableList()
-                    )
+                if (event.category.children.isEmpty()) {
+                    setState { copy(selectedCategory = event.category) }
+                } else {
+                    setState {
+                        copy(
+                            selectedCategories =
+                                selectedCategories?.toMutableList()?.apply { add(event.category) }
+                                    ?.toImmutableList()
+                                    ?: listOf(event.category).toImmutableList(),
+                            showCategories = event.category.children.toImmutableList()
+                        )
+                    }
                 }
             }
 
@@ -91,6 +112,10 @@ class HomeViewModel @Inject constructor(
                     )
                 }
             }
+
+            HomeUiEvent.OnClearSelectedCategory -> {
+                setState { copy(selectedCategory = null) }
+            }
         }
     }
 
@@ -111,7 +136,6 @@ class HomeViewModel @Inject constructor(
 
         return temp.toImmutableList()
     }
-
 
     private fun getCategories() {
         viewModelScope.launch {
@@ -140,7 +164,11 @@ class HomeViewModel @Inject constructor(
         if (currentState.page > 0) setState { copy(isLoadMore = true) }
         else setState { copy(isLoading = true) }
         viewModelScope.launch {
-            getAdsSummaryUseCase.invoke(currentState.page).collect {
+            getAdsSummaryUseCase.invoke(
+                adsFilter = AdsFilter(),
+                cityId = currentState.userCity!!.id,
+                page = currentState.page
+            ).collect {
                 it.onSuccess { paging ->
                     if (paging.isFirst || currentState.ads?.content.isNullOrEmpty()) {
                         setState { copy(isLoading = false, isLoadMore = false, ads = paging) }
@@ -165,3 +193,4 @@ class HomeViewModel @Inject constructor(
     }
 
 }
+

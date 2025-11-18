@@ -4,6 +4,7 @@ import com.kazemieh.network.api.ads.AdsSummaryApiService
 import com.kazemieh.network.api.category.CategoryApiService
 import com.kazemieh.network.api.category.CategoryOfAdsApiService
 import com.kazemieh.network.api.location.LocationApiService
+import com.kazemieh.network.api.parameter.ParameterApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +39,12 @@ object ProvideApiServices {
     @Provides
     fun provideCategoryOfAdsApiService(retrofit: Retrofit): CategoryOfAdsApiService {
         return retrofit.create(CategoryOfAdsApiService::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideParametersApiService(retrofit: Retrofit): ParameterApiService {
+        return retrofit.create(ParameterApiService::class.java)
     }
 }

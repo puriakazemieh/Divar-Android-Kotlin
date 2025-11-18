@@ -15,11 +15,11 @@ suspend fun <T> safeCall(execute: suspend () -> SuccessResponse<T>): DataResult<
         if (response.status == Status.SUCCESS) {
             DataResult.Success(response.data!!, response.message)
         } else {
-            Log.d("949494", " else ")
+            Log.d("94949494", " else ")
             DataResult.Failure(ServerError(504))
         }
     } catch (e: Throwable) {
-        Log.d("949494", " $e ")
+        Log.d("94949494", " $e ")
         DataResult.Failure(getApiError(e))
     }
 }
@@ -31,7 +31,7 @@ fun getApiError(throwable: Throwable): ApiError {
             if (throwable.code() == 500) {
                 return ServerError(500, message = throwable.message())
             }
-            val bodyError = throwable.response()?.errorBody().toString()
+            val bodyError = throwable.response()?.errorBody()?.string() ?: ""
             val failureResponse = Json.decodeFromString<FailureResponse>(bodyError)
             return failureResponse.toApiError()
         }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kazemieh.domain.model.category.CategoryOfAds
 import com.kazemieh.search.component.CategoryOfAdsItem
 import com.kazemieh.ui.core.input.AppTextField
@@ -38,7 +38,8 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun SearchScreen(
     vm: SearchViewModel = hiltViewModel(),
-    onSelected: (CategoryOfAds) -> Unit
+    onSelected: (CategoryOfAds) -> Unit,
+    onBack: () -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
 
@@ -53,7 +54,7 @@ fun SearchScreen(
         onAction = { vm.onTriggerEvent(it) },
         list = uiState.categoriesOfAds,
         isLoading = uiState.isLoading,
-        onBack = {}
+        onBack = onBack
     )
 
     UiMessageScreen(shared = vm.uiMessage)

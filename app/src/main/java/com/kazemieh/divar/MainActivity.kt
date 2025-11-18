@@ -34,8 +34,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
             AppTheme {
-//                AppNavigation()
-                SearchScreen(){}
+                AppNavigation()
             }
         }
     }

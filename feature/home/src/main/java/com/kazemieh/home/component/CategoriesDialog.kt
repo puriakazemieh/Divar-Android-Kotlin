@@ -51,6 +51,7 @@ import com.kazemieh.ui.utils.svgCoil
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesDialog(
@@ -72,9 +73,8 @@ fun CategoriesDialog(
         sheetState = sheetState,
         containerColor = AppTheme.colors.backgroundColor,
         onDismissRequest = {
-            if (isFocused) {
-                isFocused = false
-            } else onAction(HomeUiEvent.OnClearCategory)
+            if (isFocused) isFocused = false
+            else onAction(HomeUiEvent.OnClearCategory)
         }) {
         CategoriesDialogContent(
             modifier = Modifier
@@ -99,7 +99,7 @@ fun CategoriesDialog(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CategoriesDialogContent(
+private fun CategoriesDialogContent(
     modifier: Modifier,
     showCategories: ImmutableList<Category>?,
     selectedCategories: ImmutableList<Category>,
@@ -133,10 +133,7 @@ fun CategoriesDialogContent(
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
-                horizontalArrangement = Arrangement.spacedBy(
-                    8.dp,
-                    alignment = Alignment.CenterHorizontally
-                )
+                horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally)
             ) {
                 selectedCategories.reversed().forEachIndexed { index, category ->
                     BodyMediumText(
@@ -180,6 +177,7 @@ fun CategoriesDialogContent(
 //        showCategories.dLog("")
 
 
+
         if (!showCategories.isNullOrEmpty() && !isFocused) {
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
@@ -189,9 +187,7 @@ fun CategoriesDialogContent(
                     CategoryDialogItem(
                         category = showCategories[index],
                         onClick = {
-                            if (showCategories[index].children.isNotEmpty()) {
-                                onAction(HomeUiEvent.OnSelectedCategory(category = showCategories[index]))
-                            }
+                            onAction(HomeUiEvent.OnSelectedCategory(category = showCategories[index]))
                         }
                     )
                 }
@@ -212,7 +208,6 @@ fun CategoriesDialogContent(
             }
         }
     }
-
 }
 
 @Composable
@@ -263,8 +258,7 @@ private fun Preview() {
             CategoriesDialogContent(
                 modifier = Modifier,
                 showCategories = FakeData.provideCategories().first().children.toImmutableList(),
-                selectedCategories = FakeData.provideCategories()
-                    .first().children.toImmutableList(),
+                selectedCategories = FakeData.provideCategories().first().children.toImmutableList(),
                 searchedCategories = null
             ) {
 

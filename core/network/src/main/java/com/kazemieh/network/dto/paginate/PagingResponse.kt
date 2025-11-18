@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PagingResponse<T>(
     val content: T,
-    val totalPage: Int,
+    val totalPages: Int,
     val totalElements: Long,
     val isFirst: Boolean,
     val isLast: Boolean,

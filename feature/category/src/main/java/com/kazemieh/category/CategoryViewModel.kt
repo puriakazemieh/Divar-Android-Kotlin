@@ -12,6 +12,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.collections.removeLast
+import kotlin.invoke
+import kotlin.onFailure
+import kotlin.onSuccess
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
@@ -24,7 +28,7 @@ class CategoryViewModel @Inject constructor(
     }
 
     private fun getCategories() {
-        setState { copy(isLoading = true) }
+        setState { copy(isRefreshing = true) }
         viewModelScope.launch {
             getCategoriesUseCase.invoke().collect {
                 it.onSuccess {
@@ -38,7 +42,6 @@ class CategoryViewModel @Inject constructor(
                 }.onFailure { apiError ->
                     setState { copy(isRefreshing = false) }
                     setUiMessage(UiMessage(stringValue = apiError.message))
-                    Log.d("949494", "getCategories: ${apiError.message}")
 //                    apiError.dLog("")
                 }
             }
@@ -56,16 +59,28 @@ class CategoryViewModel @Inject constructor(
                     setState { copy(selectedCategories = newList.toImmutableList()) }
                     handleShowingCategory()
                 } else {
+                    setState { copy(selectedCategory = event.category) }
+                }
+            }
 
+            CategoryUiEvent.OnBackInCategoryDialog -> {
+                if (currentState.selectedCategories.isNotEmpty()) {
+                    val newList = currentState.selectedCategories.toMutableList()
+                    newList.removeLast()
+                    setState { copy(selectedCategories = newList.toImmutableList()) }
+                    handleShowingCategory()
                 }
             }
 
             CategoryUiEvent.OnLoadMore -> {
-
             }
 
             CategoryUiEvent.OnRefresh -> {
+                getCategories()
+            }
 
+            CategoryUiEvent.OnClearSelectedCategory -> {
+                setState { copy(selectedCategory = null) }
             }
         }
     }
@@ -81,8 +96,8 @@ class CategoryViewModel @Inject constructor(
         } else {
             setState {
                 copy(
-                    showCategories = currentState.selectedCategories.first().children.toImmutableList(),
-                    categoryTitle = currentState.selectedCategories.first().name
+                    showCategories = currentState.selectedCategories.last().children.toImmutableList(),
+                    categoryTitle = currentState.selectedCategories.last().name
                 )
             }
         }

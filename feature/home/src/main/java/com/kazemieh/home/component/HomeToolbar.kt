@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.kazemieh.ui.R
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.core.text.LabelSmallText
+import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.extension.baseModifier
 import com.kazemieh.ui.theme.AppTheme
 
@@ -52,8 +53,10 @@ fun HomeToolbar(
         )
 
         LabelSmallText(
-            modifier = Modifier.padding(top = 4.dp),
-            text = "مشهد"
+            modifier = Modifier
+                .padding(top = 4.dp)
+                .animateClickable(onCity),
+            text = cityName
         )
 
         VerticalDivider(
@@ -73,6 +76,7 @@ fun HomeToolbar(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
+                .animateClickable(onSearch)
                 .padding(top = 4.dp),
             text = stringResource(id = R.string.search_on_all_ads),
             color = AppTheme.colors.hintColor

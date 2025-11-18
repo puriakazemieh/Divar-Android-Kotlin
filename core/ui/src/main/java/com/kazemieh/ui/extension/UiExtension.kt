@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.kazemieh.ui.theme.AppTheme
+import java.time.Duration
+import java.time.Instant
 import java.util.Locale
 
 @Composable
@@ -96,4 +98,24 @@ fun String.toPrice(): String {
 fun NavController.runWithLifecycleAware(block: NavController.() -> Unit) {
     if (currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED)
         block()
+}
+
+
+fun String?.relativeTime(): String {
+    if (this.isNullOrEmpty()) return ""
+    val inputInstant = Instant.parse(this)
+    val nowInstant = Instant.now()
+
+    val duration = Duration.between(inputInstant, nowInstant)
+    val seconds = duration.seconds
+
+    return when {
+        seconds < 15 * 60 -> "لحظاتی پیش"
+        seconds < 30 * 60 -> "یک ربع پیش"
+        seconds < 60 * 60 -> "نیم ساعت پیش"
+        seconds < 2 * 60 * 60 -> "یک ساعت پیش"
+        seconds < 24 * 60 * 60 -> "${seconds / 3600} ساعت پیش"
+        seconds > 24 * 60 * 60 -> "${seconds / (3600 * 24)} روز پیش"
+        else -> ""
+    }
 }
