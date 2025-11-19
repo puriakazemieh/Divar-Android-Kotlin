@@ -1,5 +1,6 @@
 package com.kazemieh.network.di
 
+import com.kazemieh.network.api.ads.AdsApiService
 import com.kazemieh.network.api.ads.AdsSummaryApiService
 import com.kazemieh.network.api.category.CategoryApiService
 import com.kazemieh.network.api.category.CategoryOfAdsApiService
@@ -41,10 +42,15 @@ object ProvideApiServices {
         return retrofit.create(CategoryOfAdsApiService::class.java)
     }
 
-
     @Singleton
     @Provides
     fun provideParametersApiService(retrofit: Retrofit): ParameterApiService {
         return retrofit.create(ParameterApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAdsApiService(retrofit: Retrofit): AdsApiService {
+        return retrofit.create(AdsApiService::class.java)
     }
 }

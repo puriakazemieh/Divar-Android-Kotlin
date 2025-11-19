@@ -1,12 +1,15 @@
 package com.kazemieh.domain.fake_data
 
+import com.kazemieh.domain.model.ads.Ads
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.image.Image
 import com.kazemieh.domain.model.location.City
 import com.kazemieh.domain.model.location.Neighborhood
+import com.kazemieh.domain.model.user.User
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import java.time.Instant
 
 object FakeData {
 
@@ -202,5 +205,33 @@ object FakeData {
         )
     }
 
+    fun provideAds(): Ads {
+        return Ads(
+            id = 3595,
+            title = "option",
+            description = "errem",
+            price = "detraxit",
+            neighborhood = Neighborhood(id = 9534, name = "Jodi Oliver"),
+            user = User(
+                name = "Nicholas Howell",
+                family = "solet",
+                email = "denver.odom@example.com",
+                token = "nam",
+                mobile = "suscipit",
+                createAt = null,
+                updatedAt = null
+            ),
+            category = Category(
+                name = "Dianne Gibbs",
+                id = 7218,
+                icon = "percipit",
+                children = listOf()
+            ),
+            images = listOf(),
+            answers = listOf(),
+            createAt = "",
+            updatedAt =""
+        )
+    }
 
 }

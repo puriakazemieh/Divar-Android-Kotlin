@@ -29,11 +29,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.kazemieh.home.component.CategoriesDialog
 import com.kazemieh.domain.fake_data.FakeData
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.paginate.Paging
+import com.kazemieh.home.component.CategoriesDialog
 import com.kazemieh.home.component.CategoryHomeItem
 import com.kazemieh.home.component.HomeToolbar
 import com.kazemieh.ui.core.ads.AdsItem
@@ -50,7 +50,8 @@ fun HomeScreen(
     vm: HomeViewModel = hiltViewModel(),
     onCity: () -> Unit = {},
     onSearch: () -> Unit = {},
-    onSelectedCategory: (Category) -> Unit
+    onSelectedCategory: (Category) -> Unit,
+    onAdsClick: (Long) -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
     val scrollState = rememberScrollState()
@@ -63,6 +64,7 @@ fun HomeScreen(
             vm.onTriggerEvent(HomeUiEvent.OnLoadMore)
         }
     }
+
     LaunchedEffect(key1 = uiState.selectedCategory) {
         if (uiState.selectedCategory != null) {
             onSelectedCategory(uiState.selectedCategory)
@@ -80,7 +82,8 @@ fun HomeScreen(
         cityName = uiState.userCity?.name ?: "",
         onCity = onCity,
         onSearch = onSearch,
-        onAction = { vm.onTriggerEvent(it) }
+        onAction = { vm.onTriggerEvent(it) },
+        onAdsClick = { onAdsClick(it.id) }
     )
 
     if (!uiState.selectedCategories.isNullOrEmpty()) {
@@ -90,7 +93,7 @@ fun HomeScreen(
             selectedCategories = uiState.selectedCategories,
             searchedCategories = uiState.searchedCategories,
             searchText = uiState.categorySearchText,
-            onAction = { vm.onTriggerEvent(it) }
+            onAction = { vm.onTriggerEvent(it) },
         )
     }
 
@@ -113,6 +116,7 @@ fun HomeScreenContent(
     onAction: OnAction,
     onCity: () -> Unit = {},
     onSearch: () -> Unit = {},
+    onAdsClick: (AdsSummary) -> Unit = {},
 ) {
     val state = rememberPullToRefreshState()
 
@@ -191,7 +195,7 @@ fun HomeScreenContent(
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                 ) {
                     ads?.content?.forEachIndexed { index, adsSummary ->
-                        AdsItem(adsSummary = adsSummary, onClick = {})
+                        AdsItem(adsSummary = adsSummary, onClick = { onAdsClick(adsSummary) })
                         if (index != ads.content.size - 1) {
                             HorizontalDivider(
                                 modifier = Modifier
@@ -221,7 +225,6 @@ fun HomeScreenContent(
 }
 
 
-
 @PreviewLightDark
 @Composable
 private fun Preview() {
@@ -238,4 +241,5 @@ private fun Preview() {
         )
     }
 }
+
 

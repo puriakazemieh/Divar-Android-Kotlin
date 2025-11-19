@@ -1,11 +1,13 @@
 package com.kazemieh.data.di.repository
 
+import com.kazemieh.data.repository.ads.AdsRepositoryImpl
 import com.kazemieh.data.repository.ads.AdsSummaryRepositoryImpl
 import com.kazemieh.data.repository.category.CategoryOfAdsRepositoryImpl
 import com.kazemieh.data.repository.category.CategoryRepositoryImpl
 import com.kazemieh.data.repository.filter.FilterRepositoryImpl
 import com.kazemieh.data.repository.location.LocationRepositoryImpl
 import com.kazemieh.data.repository.parameter.ParameterRepositoryImpl
+import com.kazemieh.domain.repository.ads.AdsRepository
 import com.kazemieh.domain.repository.ads.AdsSummaryRepository
 import com.kazemieh.domain.repository.category.CategoryOfAdsRepository
 import com.kazemieh.domain.repository.category.CategoryRepository
@@ -39,5 +41,8 @@ interface BindRepository {
     @Binds
     fun bindFilterRepo(repo: FilterRepositoryImpl): FilterRepository
 
+
+    @Binds
+    fun bindAdsRepo(repo: AdsRepositoryImpl): AdsRepository
 
 }

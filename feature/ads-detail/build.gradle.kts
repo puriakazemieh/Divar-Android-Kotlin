@@ -1,10 +1,10 @@
 plugins {
     id("convention.android.feature")
 }
-
 android {
-    namespace = "com.kazemieh.category"
+    namespace = "com.kazaemieh.ads_detail"
 }
 
 dependencies {
+
 }
