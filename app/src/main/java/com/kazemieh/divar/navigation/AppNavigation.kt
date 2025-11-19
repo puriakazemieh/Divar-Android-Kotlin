@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.kazemieh.ads.navigation.navigateToAds
 import com.kazemieh.ads_detail.navigation.adsDetailScreen
 import com.kazemieh.ads_detail.navigation.navigateToAdsDetail
+import com.kazemieh.auth.navigation.authRoute
+import com.kazemieh.auth.navigation.authScreen
 import com.kazemieh.feature.navigation.filterScreen
 import com.kazemieh.feature.navigation.navigateToFilter
 import com.kazemieh.location.navigation.locationScreen
@@ -63,23 +65,29 @@ fun AppNavigation() {
                     }
                 )
             },
-            onChangeBottomBar = {
+            onChangeBottomBar = { it, isLogin ->
                 it.route.takeIf { bottomBarItem -> bottomBarItem.isNotEmpty() }?.let { route ->
                     mainNavController.runWithLifecycleAware {
-                        navigate(route) {
-                            // Pop up to the start destination of the graph to
-                            // avoid building up a large stack of destinations
-                            // on the back stack as users select items
-                            popUpTo(mainNavController.graph.findStartDestination().id) {
-                                saveState = true
+                        if (it.route == "create_route" && !isLogin) {
+                            navigate(authRoute) {
+
                             }
+                        } else {
+                            navigate(route) {
+                                // Pop up to the start destination of the graph to
+                                // avoid building up a large stack of destinations
+                                // on the back stack as users select items
+                                popUpTo(mainNavController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
 
-                            // Avoid multiple copies of the same destination when
-                            // re-selecting the same item
-                            launchSingleTop = true
+                                // Avoid multiple copies of the same destination when
+                                // re-selecting the same item
+                                launchSingleTop = true
 
-                            // Restore state when re-selecting a previously selected item
-                            restoreState = true
+                                // Restore state when re-selecting a previously selected item
+                                restoreState = true
+                            }
                         }
                     }
                 }
@@ -120,6 +128,11 @@ fun AppNavigation() {
                 popBackStack()
             }
         })
+
+        authScreen(
+            navigateToMain = {
+                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
+            })
     }
 
 }

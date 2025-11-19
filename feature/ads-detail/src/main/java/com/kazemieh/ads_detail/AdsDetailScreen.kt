@@ -131,10 +131,9 @@ fun AdsDetailScreenContent(
                 .fillMaxWidth()
                 .background(AppTheme.colors.itemColor)
                 .padding(16.dp),
-            text = R.string.contact_information
-        ) {
-
-        }
+            text = R.string.contact_information,
+            onClick = {}
+        )
 
     }
 }
@@ -152,7 +151,10 @@ fun CenterSection(modifier: Modifier, ads: Ads) {
             Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally)
+            horizontalArrangement = Arrangement.spacedBy(
+                8.dp,
+                alignment = Alignment.CenterHorizontally
+            )
         ) {
 
             LabelMediumText(
