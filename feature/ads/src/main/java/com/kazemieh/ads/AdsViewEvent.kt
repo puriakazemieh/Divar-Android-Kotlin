@@ -4,10 +4,11 @@ import androidx.compose.runtime.Stable
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.domain.model.category.Category
 import com.kazemieh.domain.model.filter.AdsFilter
+import com.kazemieh.domain.model.filter.FilterClickType
 import com.kazemieh.domain.model.location.City
 import com.kazemieh.domain.model.paginate.Paging
 import com.kazemieh.ui.extension.immutableListOf
-import com.kazemieh.ui.model.FilterClickType
+import com.kazemieh.ui.model.FromScreen
 import com.kazemieh.ui.viewmodel.UiEvent
 import com.kazemieh.ui.viewmodel.UiState
 import kotlinx.collections.immutable.ImmutableList
@@ -23,15 +24,17 @@ data class AdsUiState(
     val navigateToFilter: FilterClickType? = null,
     val navigateToNeighborhood: Boolean = false,
     val showCategoryDialog: Boolean = false,
-    val categories: ImmutableList<Category> = immutableListOf()
+    val categories: ImmutableList<Category> = immutableListOf(),
+    val fromScreen: FromScreen = FromScreen.Home,
 
-) : UiState
+    ) : UiState
 
 
 sealed class AdsUiEvent : UiEvent {
     data object OnRefresh : AdsUiEvent()
     data object OnLoadMore : AdsUiEvent()
     data object OnDismissDialog : AdsUiEvent()
+    data object OnNavigated : AdsUiEvent()
     data class OnFilterClickType(val filterClickType: FilterClickType) : AdsUiEvent()
 }
 

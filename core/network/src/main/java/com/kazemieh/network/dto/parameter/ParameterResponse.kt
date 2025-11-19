@@ -13,6 +13,7 @@ data class ParameterResponse(
     val acceptedOptions: List<String>? = null,
 )
 
+@Serializable
 enum class DataTypeResponse {
     StringInput,
     NumberInput,

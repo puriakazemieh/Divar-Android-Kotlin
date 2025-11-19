@@ -19,9 +19,11 @@ import com.kazemieh.ui.theme.AppTheme
 @Composable
 private fun Prev() {
     AppTheme {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .background(AppTheme.colors.backgroundColor)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(AppTheme.colors.backgroundColor)
+        ) {
             BodyLargeText(text = "this is BodyLargeText preview")
             BodyMediumText(text = "this is BodyMediumText preview")
         }
@@ -57,8 +59,14 @@ fun BodyMediumText(
     textAlign: TextAlign = TextAlign.Start,
     color: Color = AppTheme.colors.textColor,
     textDirection: TextDirection = TextDirection.Rtl,
+    maxLines: Int = Int.MAX_VALUE
 ) {
-    Text(modifier = modifier, text = text, style = textStyle.copy(textAlign = textAlign, color = color, textDirection = textDirection))
+    Text(
+        modifier = modifier,
+        text = text,
+        maxLines = maxLines,
+        style = textStyle.copy(textAlign = textAlign, color = color, textDirection = textDirection)
+    )
 }
 
 

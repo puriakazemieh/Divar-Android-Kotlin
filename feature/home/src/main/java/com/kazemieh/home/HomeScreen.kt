@@ -66,6 +66,7 @@ fun HomeScreen(
     LaunchedEffect(key1 = uiState.selectedCategory) {
         if (uiState.selectedCategory != null) {
             onSelectedCategory(uiState.selectedCategory)
+            vm.onTriggerEvent(HomeUiEvent.OnClearSelectedCategory)
         }
     }
     HomeScreenContent(

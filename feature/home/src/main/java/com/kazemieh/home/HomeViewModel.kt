@@ -9,6 +9,7 @@ import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.model.paginate.addMore
 import com.kazemieh.domain.usecase.ads.GetAdsSummaryUseCase
 import com.kazemieh.domain.usecase.category.GetCategoriesUseCase
+import com.kazemieh.domain.usecase.filter.SaveFilterFromHomeUseCase
 import com.kazemieh.domain.usecase.location.GetUserCityUseCase
 import com.kazemieh.ui.extension.immutableListOf
 import com.kazemieh.ui.model.UiMessage
@@ -24,7 +25,8 @@ class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle?,
     private val getAdsSummaryUseCase: GetAdsSummaryUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getUserCityUseCase: GetUserCityUseCase
+    private val getUserCityUseCase: GetUserCityUseCase,
+    private val saveFilterFromHomeUseCase: SaveFilterFromHomeUseCase
 ) : BaseViewModel<HomeUiState, HomeUiEvent>() {
 
     init {
@@ -67,6 +69,7 @@ class HomeViewModel @Inject constructor(
             is HomeUiEvent.OnSelectedCategory -> {
                 if (event.category.children.isEmpty()) {
                     setState { copy(selectedCategory = event.category) }
+                    saveFilter(event.category)
                 } else {
                     setState {
                         copy(
@@ -157,6 +160,12 @@ class HomeViewModel @Inject constructor(
                     setUiMessage(UiMessage(stringValue = apiError.message))
                 }
             }
+        }
+    }
+
+    private fun saveFilter(category: Category) {
+        viewModelScope.launch {
+            saveFilterFromHomeUseCase.invoke(AdsFilter(category = category))
         }
     }
 

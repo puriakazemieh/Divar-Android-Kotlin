@@ -52,8 +52,7 @@ dependencies {
     implementation(project(":feature:profile"))
     implementation(project(":feature:search"))
     implementation(project(":feature:ads"))
-
-
+    implementation(project(":feature:filter"))
 
 
     implementation(libs.androidx.core.splashscreen)

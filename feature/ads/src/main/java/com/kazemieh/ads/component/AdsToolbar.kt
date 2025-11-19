@@ -27,11 +27,11 @@ import com.kazemieh.ads.AdsUiEvent
 import com.kazemieh.ads.OnAction
 import com.kazemieh.domain.fake_data.FakeData
 import com.kazemieh.domain.model.filter.AdsFilter
+import com.kazemieh.domain.model.filter.FilterClickType
 import com.kazemieh.ui.R
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.core.text.LabelSmallText
 import com.kazemieh.ui.extension.animateClickable
-import com.kazemieh.ui.model.FilterClickType
 import com.kazemieh.ui.theme.AppTheme
 
 @Composable

@@ -7,17 +7,18 @@ import com.kazemieh.ads.navigation.adsScreen
 import com.kazemieh.ads.navigation.navigateToAds
 import com.kazemieh.category.navigation.categoryScreen
 import com.kazemieh.chat.navigation.chatScreen
-import com.kazemieh.domain.model.filter.AdsFilter
 import com.kazemieh.home.navigation.homeRoute
 import com.kazemieh.home.navigation.homeScreen
 import com.kazemieh.main.navigation.mainRoute
 import com.kazemieh.profile.navigation.profileScreen
 import com.kazemieh.ui.extension.runWithLifecycleAware
+import com.kazemieh.ui.model.FromScreen
 
 @Composable
 fun MainNavigation(
     navController: NavHostController,
-    onSearch: (AdsFilter?) -> Unit,
+    onSearch: (FromScreen) -> Unit,
+    onFilter: (FromScreen) -> Unit,
     onCity: () -> Unit
 ) {
 
@@ -29,10 +30,10 @@ fun MainNavigation(
     {
         homeScreen(
             onCity = {},
-            onSearch = { onSearch(null) },
+            onSearch = { onSearch(FromScreen.Home) },
             onSelectedCategory = {
                 navController.runWithLifecycleAware {
-                    navigateToAds(adsFilter = AdsFilter(category = it))
+                    navigateToAds(FromScreen.Home)
                 }
             }
         )
@@ -40,7 +41,7 @@ fun MainNavigation(
         categoryScreen(
             onCategory = {
                 navController.runWithLifecycleAware {
-                    navigateToAds(adsFilter = AdsFilter(category = it))
+                    navigateToAds(FromScreen.Category)
                 }
             }
         )
@@ -53,9 +54,7 @@ fun MainNavigation(
             onBack = { navController.popBackStack() },
             onSearch = onSearch,
             onCity = onCity,
-            onFilter = { adsFilter, filterClickType ->
-
-            }
+            onFilter = onFilter
         )
     }
 }

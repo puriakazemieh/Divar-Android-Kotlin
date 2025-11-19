@@ -5,14 +5,17 @@ import com.kazemieh.ui.extension.immutableListOf
 import com.kazemieh.ui.viewmodel.UiEvent
 import com.kazemieh.ui.viewmodel.UiState
 import com.kazemieh.domain.model.category.CategoryOfAds
+import com.kazemieh.domain.model.filter.AdsFilter
+import com.kazemieh.ui.model.FromScreen
 import kotlinx.collections.immutable.ImmutableList
 
 @Stable
 data class SearchUiState(
     val isLoading: Boolean = false,
-    val searchText: String = "",
     val categoriesOfAds: ImmutableList<CategoryOfAds> = immutableListOf(),
-    val selectedCategoryOfAds: CategoryOfAds? = null
+    val selectedCategoryOfAds: CategoryOfAds? = null,
+    val fromScreen: FromScreen = FromScreen.Home,
+    val adsFilter: AdsFilter? = null
 ) : UiState
 
 

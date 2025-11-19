@@ -17,13 +17,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kazemieh.ads.component.AdsToolbar
 import com.kazemieh.domain.model.ads.AdsSummary
 import com.kazemieh.domain.model.filter.AdsFilter
+import com.kazemieh.domain.model.filter.FilterClickType
 import com.kazemieh.domain.model.paginate.Paging
 import com.kazemieh.ui.category.CategoryDialog
 import com.kazemieh.ui.core.ads.AdsItem
 import com.kazemieh.ui.core.list.SwipeList
 import com.kazemieh.ui.core.ui_message.UiMessageScreen
 import com.kazemieh.ui.extension.baseModifier
-import com.kazemieh.ui.model.FilterClickType
+import com.kazemieh.ui.model.FromScreen
 import com.kazemieh.ui.theme.AppTheme
 import kotlinx.collections.immutable.ImmutableList
 
@@ -32,8 +33,8 @@ fun AdsScreen(
     vm: AdsViewModel = hiltViewModel(),
     onCity: () -> Unit,
     onBack: () -> Unit,
-    onSearch: (AdsFilter?) -> Unit,
-    onFilter: (AdsFilter, FilterClickType) -> Unit
+    onSearch: (FromScreen) -> Unit,
+    onFilter: (FromScreen) -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
 
@@ -44,15 +45,16 @@ fun AdsScreen(
     }
 
     LaunchedEffect(key1 = uiState.navigateToFilter) {
-        if (uiState.navigateToFilter != null) {
-
+        if (uiState.navigateToFilter != null && uiState.adsFilter != null) {
+            onFilter(uiState.fromScreen)
+            vm.onTriggerEvent(AdsUiEvent.OnNavigated)
         }
     }
 
     AdsScreenContent(
         modifier = Modifier.baseModifier(0.dp),
         cityName = uiState.userCity?.name ?: "",
-        onSearch = { onSearch(uiState.adsFilter) },
+        onSearch = { onSearch(uiState.fromScreen) },
         onCity = onCity,
         onBack = onBack,
         onAction = { vm.onTriggerEvent(it) },

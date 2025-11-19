@@ -5,23 +5,25 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.kazemieh.domain.fake_data.toJson
 import com.kazemieh.search.SearchScreen
 import com.kazemieh.domain.model.category.CategoryOfAds
+import com.kazemieh.ui.model.FromScreen
 
-const val searchRoute = "search_route/{searchText}"
+const val searchRoute = "search_route/{fromScreen}"
 fun NavGraphBuilder.searchScreen(
-    onSelected: (CategoryOfAds) -> Unit,
-    onBack : () -> Unit
+    onSelected: (FromScreen) -> Unit,
+    onBack: () -> Unit
 ) {
     composable(
         route = searchRoute,
-        arguments = listOf(navArgument("searchText") { type = NavType.StringType })
+        arguments = listOf(navArgument("fromScreen") { type = NavType.StringType })
     ) {
 
         SearchScreen(onSelected = onSelected, onBack = onBack)
     }
 }
 
-fun NavController.navigateToSearch(searchText: String) {
-    navigate(searchRoute.replace("{searchText}", searchText.ifEmpty { "nulll" }))
+fun NavController.navigateToSearch(fromScreen: FromScreen) {
+    navigate(searchRoute.replace("{fromScreen}", fromScreen.toJson()!!))
 }

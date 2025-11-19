@@ -1,26 +1,25 @@
 package com.kazemieh.category
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.kazemieh.ui.model.UiMessage
+import com.kazemieh.domain.model.category.Category
+import com.kazemieh.domain.model.filter.AdsFilter
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.usecase.category.GetCategoriesUseCase
+import com.kazemieh.domain.usecase.filter.SaveFilterFromCategoryUseCase
+import com.kazemieh.ui.model.UiMessage
 import com.kazemieh.ui.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.collections.removeLast
-import kotlin.invoke
-import kotlin.onFailure
-import kotlin.onSuccess
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle?,
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val saveFilterFromCategoryUseCase: SaveFilterFromCategoryUseCase
 ) : BaseViewModel<CategoryUiState, CategoryUiEvent>() {
 
     init {
@@ -42,7 +41,6 @@ class CategoryViewModel @Inject constructor(
                 }.onFailure { apiError ->
                     setState { copy(isRefreshing = false) }
                     setUiMessage(UiMessage(stringValue = apiError.message))
-//                    apiError.dLog("")
                 }
             }
         }
@@ -60,6 +58,7 @@ class CategoryViewModel @Inject constructor(
                     handleShowingCategory()
                 } else {
                     setState { copy(selectedCategory = event.category) }
+                    saveFilter(event.category)
                 }
             }
 
@@ -82,6 +81,12 @@ class CategoryViewModel @Inject constructor(
             CategoryUiEvent.OnClearSelectedCategory -> {
                 setState { copy(selectedCategory = null) }
             }
+        }
+    }
+
+    private fun saveFilter(category: Category) {
+        viewModelScope.launch {
+            saveFilterFromCategoryUseCase.invoke(AdsFilter(category = category))
         }
     }
 

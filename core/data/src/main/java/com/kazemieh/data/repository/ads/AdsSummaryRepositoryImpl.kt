@@ -12,7 +12,6 @@ import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.model.paginate.Paging
 import com.kazemieh.domain.repository.ads.AdsSummaryRepository
 import com.kazemieh.network.api.ads.AdsSummaryApiService
-import com.kazemieh.network.dto.ads.GetAdsRequest
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
@@ -32,16 +31,7 @@ class AdsSummaryRepositoryImpl @Inject constructor(
     ): Flow<DataResult<Paging<ImmutableList<AdsSummary>>>> = flow {
         safeCall {
             apiService.getAdsSummary(
-                GetAdsRequest(
-                    categoryId = null,
-                    neighborhoodId = null,
-                    cityId = cityId,
-                    price = null,
-                    parameters = null,
-                    searchText = "",
-                    page = page
-                )
-//                adsFilter.toRequest(cityId = cityId, page = page)
+                adsFilter.toRequest(cityId = cityId, page = page)
             )
         }.onSuccess { data ->
             val paging = data.toDomain(

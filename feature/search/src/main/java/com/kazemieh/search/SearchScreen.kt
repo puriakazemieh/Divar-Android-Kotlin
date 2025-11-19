@@ -32,25 +32,26 @@ import com.kazemieh.ui.core.ui_message.UiMessageScreen
 import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.extension.baseModifier
 import com.kazemieh.ui.extension.immutableListOf
+import com.kazemieh.ui.model.FromScreen
 import com.kazemieh.ui.theme.AppTheme
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun SearchScreen(
     vm: SearchViewModel = hiltViewModel(),
-    onSelected: (CategoryOfAds) -> Unit,
+    onSelected: (FromScreen) -> Unit,
     onBack: () -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
 
     LaunchedEffect(key1 = uiState.selectedCategoryOfAds) {
         if (uiState.selectedCategoryOfAds != null) {
-            onSelected(uiState.selectedCategoryOfAds)
+            onSelected(uiState.fromScreen)
         }
     }
     SearchScreenContent(
         Modifier.baseModifier(0.dp),
-        searchText = uiState.searchText,
+        searchText = uiState.adsFilter?.searchText ?: "",
         onAction = { vm.onTriggerEvent(it) },
         list = uiState.categoriesOfAds,
         isLoading = uiState.isLoading,
