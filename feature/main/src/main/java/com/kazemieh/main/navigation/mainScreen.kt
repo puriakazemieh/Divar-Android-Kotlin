@@ -2,6 +2,7 @@ package com.kazemieh.main.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.kazemieh.main.MainScreen
@@ -12,7 +13,7 @@ const val mainRoute = "main_route"
 fun NavGraphBuilder.mainScreen(
     bottomBarItems: List<BottomBarItem>,
     mainNavigation: @Composable () -> Unit,
-    onChangeBottomBar: (BottomBarItem , Boolean) -> Unit
+    onChangeBottomBar: (BottomBarItem, Boolean) -> Unit
 
 
 ) {
@@ -28,5 +29,10 @@ fun NavGraphBuilder.mainScreen(
 }
 
 fun NavController.navigateToMain() {
-    navigate(mainRoute)
+    navigate(mainRoute) {
+        popUpTo(this@navigateToMain.graph.findStartDestination().id) {
+            inclusive = true
+        }
+        launchSingleTop = true
+    }
 }

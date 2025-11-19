@@ -17,8 +17,6 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.onFailure
-import kotlin.onSuccess
 
 class AdsSummaryRepositoryImpl @Inject constructor(
     private val apiService: AdsSummaryApiService
@@ -35,7 +33,9 @@ class AdsSummaryRepositoryImpl @Inject constructor(
             )
         }.onSuccess { data ->
             val paging = data.toDomain(
-                contentMapper = { it.map { adsSummaryResponse -> adsSummaryResponse.toDomain() }.toImmutableList() }
+                contentMapper = {
+                    it.map { adsSummaryResponse -> adsSummaryResponse.toDomain() }.toImmutableList()
+                }
             )
             emit(DataResult.Success(paging))
         }.onFailure {

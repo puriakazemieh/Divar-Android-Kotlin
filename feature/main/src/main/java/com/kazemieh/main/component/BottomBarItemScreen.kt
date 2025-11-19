@@ -13,10 +13,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.kazemieh.main.fake_data.MainFakeData
-import com.kazemieh.main.model.BottomBarItem
 import com.kazemieh.main.MainUiEvent
 import com.kazemieh.main.OnAction
+import com.kazemieh.main.fake_data.MainFakeData
+import com.kazemieh.main.model.BottomBarItem
 import com.kazemieh.ui.core.text.LabelSmallText
 import com.kazemieh.ui.theme.AppTheme
 import kotlinx.collections.immutable.ImmutableList
@@ -29,7 +29,8 @@ fun BottomBarItemScreen(
     onAction: OnAction
 ) {
     NavigationBar(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .height(55.dp),
         containerColor = AppTheme.colors.itemColor
     ) {

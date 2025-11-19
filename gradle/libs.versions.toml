@@ -31,6 +31,8 @@ security-crypto = "1.1.0-alpha06"
 accompanist = "0.34.0"
 coil-svg = "2.7.0"
 androidxCoreSplashscreen = "1.0.1"
+pluck = "1.0.0-RC2"
+filepicker = "0.2.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -95,6 +97,9 @@ material = { group = "com.google.android.material", name = "material", version.r
 accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil-svg" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+pluck = { module = "com.himanshoe:pluck", version.ref = "pluck" }
+filepicker = { module = "io.github.chochanaresh:filepicker", version.ref = "filepicker" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -10,6 +10,9 @@ import com.kazemieh.ads_detail.navigation.adsDetailScreen
 import com.kazemieh.ads_detail.navigation.navigateToAdsDetail
 import com.kazemieh.auth.navigation.authRoute
 import com.kazemieh.auth.navigation.authScreen
+import com.kazemieh.create_ads.navigation.createAdsRoute
+import com.kazemieh.create_ads.navigation.createAdsScreen
+import com.kazemieh.create_ads.navigation.navigateToCreateAds
 import com.kazemieh.feature.navigation.filterScreen
 import com.kazemieh.feature.navigation.navigateToFilter
 import com.kazemieh.location.navigation.locationScreen
@@ -68,9 +71,11 @@ fun AppNavigation() {
             onChangeBottomBar = { it, isLogin ->
                 it.route.takeIf { bottomBarItem -> bottomBarItem.isNotEmpty() }?.let { route ->
                     mainNavController.runWithLifecycleAware {
-                        if (it.route == "create_route" && !isLogin) {
-                            navigate(authRoute) {
-
+                        if (it.route == createAdsRoute) {
+                            if (isLogin) {
+                                rootNavController.navigateToCreateAds()
+                            } else {
+                                rootNavController.navigate(authRoute)
                             }
                         } else {
                             navigate(route) {
@@ -129,10 +134,13 @@ fun AppNavigation() {
             }
         })
 
-        authScreen(
-            navigateToMain = {
-                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
-            })
+        authScreen(navigateToMain = {
+            rootNavController.navigateToMain()
+        })
+
+        createAdsScreen(onBack = {
+            rootNavController.runWithLifecycleAware { popBackStack() }
+        })
     }
 
 }

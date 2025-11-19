@@ -21,7 +21,7 @@ import com.kazemieh.ui.extension.animateClickable
 import com.kazemieh.ui.theme.AppTheme
 
 @Composable
-fun FilterItem(
+fun AdsFilterItem(
     modifier: Modifier = Modifier,
     title: String,
     icon: Int? = null,
@@ -81,7 +81,7 @@ fun FilterItem(
 @Composable
 private fun Preview() {
     AppTheme {
-        FilterItem(
+        AdsFilterItem(
             title = "دسته بندی",
             icon = com.kazemieh.ui.R.drawable.ic_category
         ) {
@@ -94,7 +94,7 @@ private fun Preview() {
 @Composable
 private fun PreviewSelected() {
     AppTheme {
-        FilterItem(
+        AdsFilterItem(
             title = "دسته بندی",
             isVisibleClose = true,
             icon = com.kazemieh.ui.R.drawable.ic_category

@@ -39,7 +39,7 @@ import kotlinx.collections.immutable.toImmutableList
 @Composable
 fun AuthScreen(
     vm: AuthViewModel = hiltViewModel(),
-    navigateToMain : () -> Unit
+    navigateToMain: () -> Unit
 ) {
     val uiState = vm.uiState.collectAsState().value
 
@@ -83,7 +83,10 @@ fun AuthScreenContent(
                 .background(AppTheme.colors.itemColor)
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally)
+            horizontalArrangement = Arrangement.spacedBy(
+                8.dp,
+                alignment = Alignment.CenterHorizontally
+            )
         ) {
             TitleMediumText(
                 modifier = Modifier
@@ -166,7 +169,15 @@ fun AuthScreenContent(
                 AppTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = repeatPassword,
-                    onValueChange = { onAction(AuthUiEvent.OnTextChanged(TypingType.RepeatPassword(it))) },
+                    onValueChange = {
+                        onAction(
+                            AuthUiEvent.OnTextChanged(
+                                TypingType.RepeatPassword(
+                                    it
+                                )
+                            )
+                        )
+                    },
                     hint = stringResource(id = R.string.repeat_password)
                 )
             }
