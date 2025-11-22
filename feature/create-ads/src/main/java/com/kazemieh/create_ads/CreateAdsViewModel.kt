@@ -6,6 +6,7 @@ import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.model.parameter.DataType
 import com.kazemieh.domain.usecase.ads.CreateAdsUseCase
 import com.kazemieh.domain.usecase.category.GetCategoriesUseCase
+import com.kazemieh.domain.usecase.location.GetNeighborhoodUseCase
 import com.kazemieh.domain.usecase.parameter.GetParametersUseCase
 import com.kazemieh.ui.R
 import com.kazemieh.ui.extension.findIndex
@@ -23,7 +24,9 @@ import javax.inject.Inject
 class CreateAdsViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getParametersUseCase: GetParametersUseCase,
-    private val createAdsUseCase: CreateAdsUseCase
+    private val createAdsUseCase: CreateAdsUseCase,
+    private val getNeighborhoodUseCase: GetNeighborhoodUseCase
+
 ) : BaseViewModel<CreateAdsUiState, CreateAdsUiEvent>() {
     init {
         getCategories()
@@ -59,6 +62,7 @@ class CreateAdsViewModel @Inject constructor(
                 }
             }
 
+
             CreateAdsUiEvent.OnNext -> {
                 when (currentState.screenStep) {
                     ScreenStep.Step1 -> {
@@ -74,7 +78,12 @@ class CreateAdsViewModel @Inject constructor(
             }
 
             is CreateAdsUiEvent.OnSelectCategory -> {
-                setState { copy(createAdsParam = createAdsParam.copy(category = event.category), showCategoryDialog = false) }
+                setState {
+                    copy(
+                        createAdsParam = createAdsParam.copy(category = event.category),
+                        showCategoryDialog = false
+                    )
+                }
                 getParameter()
             }
 
@@ -124,7 +133,11 @@ class CreateAdsViewModel @Inject constructor(
             }
 
             is CreateAdsUiEvent.OnNeighborhood -> {
-
+                viewModelScope.launch {
+                    setState { copy(toNeighborhood = true) }
+                    delay(2000)
+                    setState { copy(toNeighborhood = false) }
+                }
             }
 
             is CreateAdsUiEvent.OnPriceChanged -> {
@@ -174,6 +187,21 @@ class CreateAdsViewModel @Inject constructor(
                     )
                 }
             }
+
+            CreateAdsUiEvent.CheckNeighborhood -> {
+                getNeighborhood()
+            }
+        }
+    }
+
+    private fun getNeighborhood() {
+        viewModelScope.launch {
+            getNeighborhoodUseCase.invoke().collect {
+                it.onSuccess {
+                    setState { copy(createAdsParam = createAdsParam.copy(neighborhood = it)) }
+                }.onFailure { _ ->
+                }
+            }
         }
     }
 
@@ -210,22 +238,23 @@ class CreateAdsViewModel @Inject constructor(
     private fun createAds() {
         setState { copy(isLoading = true) }
         viewModelScope.launch {
-            createAdsUseCase.invoke(currentState.createAdsParam.copy(parameters = currentState.parameters)).collect {
-                setState { copy(isLoading = false) }
-                it.onSuccess {
-                    setUiMessage(
-                        UiMessage(
-                            intValue = R.string.ads_created_successful,
-                            messageType = MessageType.System,
-                            status = MessageStatus.Success
+            createAdsUseCase.invoke(currentState.createAdsParam.copy(parameters = currentState.parameters))
+                .collect {
+                    setState { copy(isLoading = false) }
+                    it.onSuccess {
+                        setUiMessage(
+                            UiMessage(
+                                intValue = R.string.ads_created_successful,
+                                messageType = MessageType.System,
+                                status = MessageStatus.Success
+                            )
                         )
-                    )
-                    delay(2 * 1000)
-                    setState { copy(adsCreated = true, isLoading = false) }
-                }.onFailure { apiError ->
-                    setUiMessage(UiMessage(stringValue = apiError.message))
+                        delay(2 * 1000)
+                        setState { copy(adsCreated = true, isLoading = false) }
+                    }.onFailure { apiError ->
+                        setUiMessage(UiMessage(stringValue = apiError.message))
+                    }
                 }
-            }
         }
     }
 

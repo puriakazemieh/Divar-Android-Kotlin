@@ -1,7 +1,6 @@
 package com.kazemieh.data.repository.location
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.kazemieh.data.mapper.location.toDomain
 import com.kazemieh.data.utils.fromJson
 import com.kazemieh.data.utils.safeCall
@@ -9,6 +8,7 @@ import com.kazemieh.data.utils.toJson
 import com.kazemieh.domain.model.DataResult
 import com.kazemieh.domain.model.NotFoundError
 import com.kazemieh.domain.model.location.City
+import com.kazemieh.domain.model.location.Neighborhood
 import com.kazemieh.domain.model.onFailure
 import com.kazemieh.domain.model.onSuccess
 import com.kazemieh.domain.repository.location.LocationRepository
@@ -17,7 +17,6 @@ import com.kazemieh.secure_shared_pref.di.SharedPrefConstant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.collections.map
 
 class LocationRepositoryImpl @Inject constructor(
     private val apiService: LocationApiService,
@@ -40,6 +39,30 @@ class LocationRepositoryImpl @Inject constructor(
 
     override suspend fun getUserCity(): Flow<DataResult<City>> = flow {
         sharedPreferences.getString(SharedPrefConstant.USER_CITY, null)?.fromJson<City?>()?.let {
+            emit(DataResult.Success(it))
+        } ?: run {
+            emit(DataResult.Failure(NotFoundError(404)))
+        }
+    }
+
+    override suspend fun getCitiesWidthNeighborhoods(): Flow<DataResult<List<City>>> = flow {
+        safeCall { apiService.getCitiesWithNeighborhood() }
+            .onSuccess { data ->
+                emit(DataResult.Success(data.map { it.toDomain() }))
+            }.onFailure {
+                emit(DataResult.Failure(it))
+            }
+    }
+
+    override suspend fun saveNeighborhood(neighborhood: Neighborhood) {
+        neighborhood.toJson()?.let {
+            sharedPreferences.edit().putString(SharedPrefConstant.USER_NEIGHBORHOOD, it).apply()
+        }
+    }
+
+    override suspend fun getUserNeighborhood(): Flow<DataResult<Neighborhood>> = flow {
+        sharedPreferences.getString(SharedPrefConstant.USER_NEIGHBORHOOD, null)
+            ?.fromJson<Neighborhood?>()?.let {
             emit(DataResult.Success(it))
         } ?: run {
             emit(DataResult.Failure(NotFoundError(404)))

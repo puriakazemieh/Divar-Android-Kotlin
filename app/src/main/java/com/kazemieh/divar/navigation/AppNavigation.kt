@@ -39,13 +39,10 @@ fun AppNavigation() {
     {
         splashScreen(
             onMoveToMain = {
-                rootNavController.navigateToMain()
-//                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
+                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
             },
             onMoveToLocation = {
-                Log.d("949494", "AppNavigation: onMoveToLocation")
-                rootNavController.navigateToLocation()
-//                rootNavController.runWithLifecycleAware { rootNavController.navigateToLocation() }
+                rootNavController.runWithLifecycleAware { rootNavController.navigateToLocation(LocationScreenType.FromLogin) }
             }
         )
 
@@ -124,17 +121,20 @@ fun AppNavigation() {
             }
         )
 
-        adsDetailScreen(onBack = {
+        adsDetailScreen(
+            onBack = {
             rootNavController.runWithLifecycleAware {
                 popBackStack()
             }
         })
 
-        authScreen(navigateToMain = {
+        authScreen(
+            navigateToMain = {
             rootNavController.navigateToMain()
         })
 
-        createAdsScreen(onBack = {
+        createAdsScreen(
+            onBack = {
             rootNavController.runWithLifecycleAware { popBackStack() }
         })
     }

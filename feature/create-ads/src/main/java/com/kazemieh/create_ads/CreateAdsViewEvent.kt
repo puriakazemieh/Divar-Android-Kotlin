@@ -11,12 +11,14 @@ import kotlinx.collections.immutable.ImmutableList
 
 @Stable
 data class CreateAdsUiState(
-    val isLoading: Boolean = true,
+    val isLoading: Boolean = false,
     val adsCreated: Boolean = false,
     val screenStep: ScreenStep = ScreenStep.Step1,
 
     val showCategoryDialog: Boolean = false,
     val allCategories: ImmutableList<Category> = immutableListOf(),
+
+    val toNeighborhood : Boolean = false,
 
     val createAdsParam: CreateAdsParam = CreateAdsParam(),
 
@@ -38,6 +40,7 @@ sealed class CreateAdsUiEvent : UiEvent {
 
     data class OnTitleChanged(val text: String) : CreateAdsUiEvent()
     data class OnDescriptionChanged(val text: String) : CreateAdsUiEvent()
+    data object CheckNeighborhood : CreateAdsUiEvent()
 
     data object OnNeighborhood : CreateAdsUiEvent()
     data class OnPriceChanged(val text: String) : CreateAdsUiEvent()

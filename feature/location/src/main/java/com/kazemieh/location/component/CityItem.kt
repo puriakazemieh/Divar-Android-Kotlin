@@ -7,6 +7,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.kazemieh.domain.fake_data.FakeData
 import com.kazemieh.domain.model.location.City
+import com.kazemieh.domain.model.location.Neighborhood
 import com.kazemieh.location.navigation.locationRoute
 import com.kazemieh.ui.core.text.BodyMediumText
 import com.kazemieh.ui.extension.animateClickable
@@ -35,4 +36,18 @@ private fun Preview() {
             
         }
     }
+}
+
+
+@Composable
+fun NeighborhoodItem(
+    modifier: Modifier = Modifier,
+    neighborhood: Neighborhood,
+    onClick: () -> Unit
+) {
+    BodyMediumText(
+        modifier = Modifier.fillMaxWidth().animateClickable(onClick),
+        text = neighborhood.name,
+        textAlign = TextAlign.Start
+    )
 }

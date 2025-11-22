@@ -6,5 +6,6 @@ object SharedPrefConstant {
     const val USER_CITY = "user_city"
     const val HOME_FILTER = "home_filter"
     const val CATEGORY_FILTER = "category_filter"
+    const val USER_NEIGHBORHOOD = "user_neighborhood"
 
 }

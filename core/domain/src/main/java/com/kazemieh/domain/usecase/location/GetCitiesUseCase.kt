@@ -9,7 +9,10 @@ import javax.inject.Inject
 class GetCitiesUseCase @Inject constructor(
     private val repo: LocationRepository
 ) {
-    suspend operator fun invoke(): Flow<DataResult<List<City>>> {
-        return repo.getCities()
+    suspend operator fun invoke(includeNeighborhoods: Boolean = false): Flow<DataResult<List<City>>> {
+        return if (includeNeighborhoods)
+            repo.getCitiesWidthNeighborhoods()
+        else
+            repo.getCities()
     }
 }
