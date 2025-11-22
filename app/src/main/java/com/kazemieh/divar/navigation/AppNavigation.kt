@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.kazemieh.ads.navigation.navigateToAds
 import com.kazemieh.ads_detail.navigation.adsDetailScreen
 import com.kazemieh.ads_detail.navigation.navigateToAdsDetail
-import com.kazemieh.auth.navigation.authRoute
 import com.kazemieh.auth.navigation.authScreen
+import com.kazemieh.auth.navigation.navigateToAuth
 import com.kazemieh.create_ads.navigation.createAdsRoute
 import com.kazemieh.create_ads.navigation.createAdsScreen
 import com.kazemieh.create_ads.navigation.navigateToCreateAds
@@ -75,7 +75,7 @@ fun AppNavigation() {
                             if (isLogin) {
                                 rootNavController.navigateToCreateAds()
                             } else {
-                                rootNavController.navigate(authRoute)
+                                rootNavController.navigateToAuth()
                             }
                         } else {
                             navigate(route) {
@@ -99,13 +99,9 @@ fun AppNavigation() {
             }
         )
 
-
-
-        locationScreen(
-            onMoveToMain = {
-                rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
-            }
-        )
+        locationScreen(onMoveToMain = {
+            rootNavController.runWithLifecycleAware { rootNavController.navigateToMain() }
+        })
 
         searchScreen(
             onSelected = {

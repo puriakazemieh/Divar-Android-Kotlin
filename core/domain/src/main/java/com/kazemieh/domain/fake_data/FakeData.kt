@@ -9,7 +9,6 @@ import com.kazemieh.domain.model.location.Neighborhood
 import com.kazemieh.domain.model.user.User
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import java.time.Instant
 
 object FakeData {
 
@@ -228,7 +227,7 @@ object FakeData {
                 children = listOf()
             ),
             images = listOf(),
-            answers = listOf(),
+            answer = listOf(),
             createAt = "",
             updatedAt =""
         )

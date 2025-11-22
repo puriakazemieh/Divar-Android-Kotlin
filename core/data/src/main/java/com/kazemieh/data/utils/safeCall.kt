@@ -30,7 +30,7 @@ fun getApiError(throwable: Throwable): ApiError {
         is retrofit2.HttpException -> {
             if (throwable.code() == 500) {
                 return ServerError(500, message = throwable.message())
-            }else if (throwable.code() == 404)
+            } else if (throwable.code() == 404)
                 return ServerError(404, message = throwable.message())
 
             val bodyError = throwable.response()?.errorBody()?.string() ?: ""

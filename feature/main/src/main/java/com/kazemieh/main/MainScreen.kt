@@ -63,8 +63,7 @@ fun MainScreenContent(
             )
         },
         content = {
-            Box(modifier = Modifier.padding(it))
-            {
+            Box(modifier = Modifier.padding(it)) {
                 mainNavigation()
             }
         }

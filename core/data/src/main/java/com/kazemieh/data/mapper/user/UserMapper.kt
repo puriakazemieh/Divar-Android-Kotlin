@@ -10,7 +10,7 @@ fun UserResponse.toDomain(): User {
         email = email,
         token = token,
         mobile = mobile,
-        createAt = createAt,
+        createAt = createdAt,
         updatedAt = updatedAt
     )
 }

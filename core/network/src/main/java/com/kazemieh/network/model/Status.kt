@@ -1,3 +1,6 @@
 package com.kazemieh.network.model
 
-enum class Status { SUCCESS, Failure }
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class Status { SUCCESS, FAILURE }

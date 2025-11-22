@@ -16,5 +16,5 @@ data class CreateAdsRequest(
 
     val categoryId: Long,
 
-    val answers: List<ParameterAnswerRequest>
+    val answer: List<ParameterAnswerRequest>
 )

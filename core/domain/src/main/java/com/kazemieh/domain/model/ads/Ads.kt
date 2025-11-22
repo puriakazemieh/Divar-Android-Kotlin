@@ -5,7 +5,6 @@ import com.kazemieh.domain.model.image.Image
 import com.kazemieh.domain.model.location.Neighborhood
 import com.kazemieh.domain.model.parameter.ParameterAnswer
 import com.kazemieh.domain.model.user.User
-import java.time.Instant
 
 data class Ads(
     val id: Long,
@@ -24,7 +23,7 @@ data class Ads(
 
     val images: List<Image>,
 
-    val answers: List<ParameterAnswer>,
+    val answer: List<ParameterAnswer>,
 
     val createAt: String? = null,
 

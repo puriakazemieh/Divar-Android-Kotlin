@@ -9,6 +9,6 @@ fun CategoryResponse.toDomain(): Category {
         id = id,
         name = name,
         icon = "${BuildConfig.BaseUrl}/$icon",
-        children = children.map { it.toDomain() }
+        children = children?.map { it.toDomain() }?:emptyList()
     )
 }

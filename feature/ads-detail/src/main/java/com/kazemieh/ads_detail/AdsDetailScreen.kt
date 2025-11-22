@@ -199,7 +199,7 @@ fun CenterSection(modifier: Modifier, ads: Ads) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            ads.answers.forEachIndexed { index, parameterAnswer ->
+            ads.answer.forEachIndexed { index, parameterAnswer ->
                 ParameterAnswerItem(parameterAnswer)
 
                 HorizontalDivider(

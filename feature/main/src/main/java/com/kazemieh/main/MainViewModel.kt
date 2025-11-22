@@ -14,7 +14,6 @@ class MainViewModel @Inject constructor(
     private val isLoginUseCase: IsLoginUseCase
 ) : BaseViewModel<MainUiState, MainUiEvent>() {
 
-    override fun createInitialState() = MainUiState()
 
     init {
         checkUserLoggedIn()
@@ -27,6 +26,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    override fun createInitialState() = MainUiState()
 
     override fun onTriggerEvent(event: MainUiEvent) {
         when (event) {

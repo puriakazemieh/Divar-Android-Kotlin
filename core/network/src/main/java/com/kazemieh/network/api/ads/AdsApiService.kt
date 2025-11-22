@@ -1,7 +1,6 @@
 package com.kazemieh.network.api.ads
 
 import com.kazemieh.network.dto.ads.AdsResponse
-import com.kazemieh.network.dto.paginate.PagingResponse
 import com.kazemieh.network.model.SuccessResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

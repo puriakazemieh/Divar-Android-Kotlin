@@ -36,7 +36,7 @@ fun AdsResponse.toDomain(): Ads {
         user = user.toDomain(),
         category = category.toDomain(),
         images = images.map { it.toDomain() },
-        answers = answers.map { it.toDomain() },
+        answer = answer.map { it.toDomain() },
         createAt = createAt,
         updatedAt = updatedAt
     )
@@ -51,7 +51,7 @@ fun CreateAdsParam.toRequest(): CreateAdsRequest {
         price = price,
         neighborhoodId = 1,
         categoryId = category!!.id,
-        answers = parameters.map {
+        answer = parameters.map {
             ParameterAnswerRequest(
                 answer = it.answer.toString(),
                 parameterId = it.id
